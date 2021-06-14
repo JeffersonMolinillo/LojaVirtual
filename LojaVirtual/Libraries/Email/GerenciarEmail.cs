@@ -38,7 +38,7 @@ namespace LojaVirtual.Libraries.Email
              */
             MailMessage mensagem = new MailMessage();
             mensagem.From = new MailAddress(_configuration.GetValue<string>("Email:Username"));
-            mensagem.To.Add("elias.ribeiro.s@gmail.com");
+            mensagem.To.Add("jecavalcantemolinillo@gmail.com");
             mensagem.Subject = "Contato - LojaVirtual - E-mail: " + contato.Email;
             mensagem.Body = corpoMsg;
             mensagem.IsBodyHtml = true;
