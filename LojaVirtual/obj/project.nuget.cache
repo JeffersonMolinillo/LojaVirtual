@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "8/U0dVjAKXn/0LjqUKM4ydA25cwOJP0vMKv0DLaEu+FBKY6GWkPIOJ3U9MsdOmNfA7348vPZNp3j0uLNNiK9bA==",
+  "dgSpecHash": "VQtCs07EU0XA0zWmksclNPzmlxopj6NNRjR1khieEGD+GU8/Dicb756cmUuidQYAMF0sqj76PrymT2mMIKaB2A==",
   "success": true,
   "projectFilePath": "C:\\Users\\Adm\\source\\repos\\12_Fim\\LojaVirtual\\LojaVirtual.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Adm\\.nuget\\packages\\automapper\\6.1.1\\automapper.6.1.1.nupkg.sha512",
+    "C:\\Users\\Adm\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\3.0.1\\automapper.extensions.microsoft.dependencyinjection.3.0.1.nupkg.sha512",
     "C:\\Users\\Adm\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.2.6\\microsoft.aspnet.webapi.client.5.2.6.nupkg.sha512",
     "C:\\Users\\Adm\\.nuget\\packages\\microsoft.aspnetcore\\2.2.0\\microsoft.aspnetcore.2.2.0.nupkg.sha512",
     "C:\\Users\\Adm\\.nuget\\packages\\microsoft.aspnetcore.antiforgery\\2.2.0\\microsoft.aspnetcore.antiforgery.2.2.0.nupkg.sha512",
@@ -217,7 +219,10 @@
     "C:\\Users\\Adm\\.nuget\\packages\\system.collections.immutable\\1.5.0\\system.collections.immutable.1.5.0.nupkg.sha512",
     "C:\\Users\\Adm\\.nuget\\packages\\system.collections.nongeneric\\4.3.0\\system.collections.nongeneric.4.3.0.nupkg.sha512",
     "C:\\Users\\Adm\\.nuget\\packages\\system.collections.specialized\\4.3.0\\system.collections.specialized.4.3.0.nupkg.sha512",
+    "C:\\Users\\Adm\\.nuget\\packages\\system.componentmodel\\4.3.0\\system.componentmodel.4.3.0.nupkg.sha512",
     "C:\\Users\\Adm\\.nuget\\packages\\system.componentmodel.annotations\\4.5.0\\system.componentmodel.annotations.4.5.0.nupkg.sha512",
+    "C:\\Users\\Adm\\.nuget\\packages\\system.componentmodel.primitives\\4.3.0\\system.componentmodel.primitives.4.3.0.nupkg.sha512",
+    "C:\\Users\\Adm\\.nuget\\packages\\system.componentmodel.typeconverter\\4.3.0\\system.componentmodel.typeconverter.4.3.0.nupkg.sha512",
     "C:\\Users\\Adm\\.nuget\\packages\\system.composition\\1.0.31\\system.composition.1.0.31.nupkg.sha512",
     "C:\\Users\\Adm\\.nuget\\packages\\system.composition.attributedmodel\\1.0.31\\system.composition.attributedmodel.1.0.31.nupkg.sha512",
     "C:\\Users\\Adm\\.nuget\\packages\\system.composition.convention\\1.0.31\\system.composition.convention.1.0.31.nupkg.sha512",

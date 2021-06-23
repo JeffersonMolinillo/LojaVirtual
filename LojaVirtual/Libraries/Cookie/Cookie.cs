@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using LojaVirtual.Libraries.Seguranca;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +11,12 @@ namespace LojaVirtual.Libraries.Cookie
     public class Cookie
     {
         private IHttpContextAccessor _context;
-        public Cookie(IHttpContextAccessor context)
+        private IConfiguration _configuration;
+
+        public Cookie(IHttpContextAccessor context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         /*
@@ -21,8 +26,12 @@ namespace LojaVirtual.Libraries.Cookie
         {
             CookieOptions Options = new CookieOptions();
             Options.Expires = DateTime.Now.AddDays(7);
+            Options.IsEssential = true;
 
-            _context.HttpContext.Response.Cookies.Append(Key, Valor, Options);
+            var ValorCrypt = StringCilpher.Encrypt(Valor, _configuration.GetValue<string>("KeyCrypt")); 
+
+
+            _context.HttpContext.Response.Cookies.Append(Key, ValorCrypt, Options);
         }
         public void Atualizar(string Key, string Valor)
         {
@@ -38,7 +47,9 @@ namespace LojaVirtual.Libraries.Cookie
         }
         public string Consultar(string Key)
         {
-            return _context.HttpContext.Request.Cookies[Key];
+            var ValorCrypt = _context.HttpContext.Request.Cookies[Key];
+            var Valor = StringCilpher.Decrypt(ValorCrypt, _configuration.GetValue<string>("KeyCrypt"));
+            return Valor;
         }
 
 

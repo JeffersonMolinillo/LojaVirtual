@@ -5449,7 +5449,6 @@ C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Areas
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Views\CarrinhoCompra\Index.cshtml.g.cs
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Views\CarrinhoCompra\NaoExisteItem.cshtml.g.cs
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Views\Home\CadastroCliente.cshtml.g.cs
-C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Views\Home\CarrinhoCompras.cshtml.g.cs
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Views\Home\Categoria.cshtml.g.cs
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Views\Home\Contato.cshtml.g.cs
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Views\Home\Index.cshtml.g.cs

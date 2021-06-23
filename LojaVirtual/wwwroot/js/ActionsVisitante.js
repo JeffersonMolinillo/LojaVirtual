@@ -2,7 +2,115 @@
     MoverScrollOrdenacao();
     MudarOrdenacao();
     MudarImagePrincipalProduto();
+    MudarQuantidadeProdutoCarrinho();
 });
+
+function NumberToReal(numero) {
+    var numero = numero.toFixed(2).split('.');
+    numero[0] = "R$ " + numero[0].split(/(?=(?:...)*$)/).join('');
+    return numero.join(',');
+}
+
+function MudarQuantidadeProdutoCarrinho() {
+    $("#order .btn-primary").click(function () {
+        if ($(this).hasClass("diminuir")) {
+            OrquestradorDeAcoesProduto("diminuir", $(this));
+        }
+        if ($(this).hasClass("aumentar")) {
+            OrquestradorDeAcoesProduto("aumentar", $(this));
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+function OrquestradorDeAcoesProduto(operacao, botao) {
+    OcultarMensagemDeErro();
+    var pai = botao.parent().parent();
+
+    var produtoId = pai.find(".inputProdutoId").val();
+    var quantidadeEstoque = parseInt(pai.find(".inputQuantidadeEstoque").val());
+    var valorUnitario = parseFloat(pai.find(".inputValorUnitario").val().replace(",", "."));
+
+    var campoQuantidadeProdutoCarrinho = pai.find(".inputQuantidadeProdutoCarrinho");
+    var quantidadeProdutoCarrinhoAntiga = parseInt(campoQuantidadeProdutoCarrinho.val());
+
+
+    var campoValor = botao.parent().parent().parent().parent().parent().find(".price");
+
+    var produto = new ProdutoQuantidadeEValor(produtoId, quantidadeEstoque, valorUnitario, campoQuantidadeProdutoCarrinho, campoValor, quantidadeProdutoCarrinhoAntiga, 0);
+
+    AlteracoesVisuaisDoProdutoCarrinho(produto, operacao);
+
+}
+
+function AlteracoesVisuaisDoProdutoCarrinho(produto, operacao) {
+    if (operacao == "aumentar") {
+        //if (produto.quantidadeProdutoCarrinhoAntiga == produto.quantidadeEstoque) {
+        //    alert("sem estoque");
+        //} else
+        {
+            produto.quantidadeProdutoCarrinhoNova = produto.quantidadeProdutoCarrinhoAntiga + 1;
+            AtualizarQuantidadeEValor(produto);
+            AJAXComunicarAlteracaoQuantidadeProduto(produto);
+        }
+
+    }
+    else if (operacao == "diminuir") {
+        //if (produto.quantidadeProdutoCarrinhoAntiga == 1) {
+        //    alert("quantidade miníma");
+        //}
+        //else
+        {
+            produto.quantidadeProdutoCarrinhoNova = produto.quantidadeProdutoCarrinhoAntiga - 1;
+            AtualizarQuantidadeEValor(produto);
+            AJAXComunicarAlteracaoQuantidadeProduto(produto);
+
+        }
+    }
+}
+
+function AJAXComunicarAlteracaoQuantidadeProduto(produto) {
+    $.ajax({
+        type: "GET",
+        url: "/CarrinhoCompra/AlterarQuantidade?id=" + produto.produtoId + "&quantidade=" + produto.quantidadeProdutoCarrinhoNova,
+        error: function (data) {
+            MostrarMensagemDeErro(data.responseJSON.mensagem);
+            produto.quantidadeProdutoCarrinhoNova = produto.quantidadeProdutoCarrinhoAntiga;  /*Rolback da quantidade se der erro*/
+            AtualizarQuantidadeEValor(produto);
+        },
+        success: function () {
+        }
+    });
+}
+
+function MostrarMensagemDeErro(mensagem) {
+    $(".alert-danger").css("display", "block");
+    $(".alert-danger").text(mensagem);
+}
+
+function OcultarMensagemDeErro() {
+    $(".alert-danger").css("display", "none");
+}
+
+
+
+function AtualizarQuantidadeEValor(produto) {
+    produto.campoQuantidadeProdutoCarrinho.val(produto.quantidadeProdutoCarrinhoNova);
+
+    var resultado = produto.valorUnitario * produto.quantidadeProdutoCarrinhoNova;
+    produto.campoValor.text(NumberToReal(resultado));
+}
+
+
+
 function MudarImagePrincipalProduto() {
     $(".img-small-wrap img").click(function () {
         var Caminho = $(this).attr("src");
@@ -18,6 +126,8 @@ function MoverScrollOrdenacao() {
         }
     }
 }
+
+
 function MudarOrdenacao() {
     $("#ordenacao").change(function () {
         //TODO - Redirecionar para a tela Home/Index passando as QueryString de Ordenação e mantendo a Pagina e a pesquisa.
@@ -42,5 +152,29 @@ function MudarOrdenacao() {
         var URLComParametros = URL + "?pagina=" + Pagina + "&pesquisa=" + Pesquisa + "&ordenacao=" + Ordenacao + Fragmento;
         window.location.href = URLComParametros;
 
-    });
+    }
+
+
+    )
+};
+
+
+
+
+
+/*--------------------------------------------------*/
+
+
+class ProdutoQuantidadeEValor {
+    constructor(produtoId, quantidadeEstoque, valorUnitario, campoQuantidadeProdutoCarrinho, campoValor, quantidadeProdutoCarrinhoAntiga, quantidadeProdutoCarrinhoNova) {
+        this.produtoId = produtoId;
+        this.quantidadeEstoque = quantidadeEstoque;
+        this.valorUnitario = valorUnitario;
+
+        this.quantidadeProdutoCarrinhoAntiga = quantidadeProdutoCarrinhoAntiga;
+        this.quantidadeProdutoCarrinhoNova = quantidadeProdutoCarrinhoNova;
+
+        this.campoQuantidadeProdutoCarrinho = campoQuantidadeProdutoCarrinho;
+        this.campoValor = campoValor;
+    }
 }

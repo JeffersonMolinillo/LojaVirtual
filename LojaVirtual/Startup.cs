@@ -21,6 +21,8 @@ using System.Net;
 using LojaVirtual.Libraries.Email;
 using LojaVirtual.Libraries.Middleware;
 using LojaVirtual.Libraries.CarrinhoCompra;
+using AutoMapper;
+using LojaVirtual.Libraries.AutoMapper;
 
 namespace LojaVirtual
 {
@@ -33,9 +35,11 @@ namespace LojaVirtual
 
         public IConfiguration Configuration { get; }
 
-        
+
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddAutoMapper(config => config.AddProfile<MappingProfile>());
             /*
              * Padrão Repository
              */
@@ -50,7 +54,8 @@ namespace LojaVirtual
             /*
              * SMTP
              */
-            services.AddScoped<SmtpClient>(options=> {
+            services.AddScoped<SmtpClient>(options =>
+            {
                 SmtpClient smtp = new SmtpClient()
                 {
                     Host = Configuration.GetValue<string>("Email:ServerSMTP"),
@@ -68,7 +73,7 @@ namespace LojaVirtual
 
             services.Configure<CookiePolicyOptions>(options =>
             {
-                
+
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
@@ -77,8 +82,9 @@ namespace LojaVirtual
              * Session - Configuração
              */
             services.AddMemoryCache(); //Guardar os dados na memória
-            services.AddSession(options=> {
-                
+            services.AddSession(options =>
+            {
+
             });
 
             services.AddScoped<Sessao>();
@@ -86,7 +92,8 @@ namespace LojaVirtual
             services.AddScoped<LoginCliente>();
             services.AddScoped<LoginColaborador>();
 
-            services.AddMvc(options=> {
+            services.AddMvc(options =>
+            {
                 options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(x => "O campo deve ser preenchido!");
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -110,7 +117,7 @@ namespace LojaVirtual
 
             app.UseHttpsRedirection();
             app.UseDefaultFiles();
-            app.UseStaticFiles();            
+            app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseSession();
             app.UseMiddleware<ValidateAntiForgeryTokenMiddleware>();

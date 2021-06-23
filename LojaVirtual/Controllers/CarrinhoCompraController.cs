@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using LojaVirtual.Libraries.CarrinhoCompra;
-using LojaVirtual.Models;
+using LojaVirtual.Libraries.Lang;
 using LojaVirtual.Models.ProdutoAgregador;
 using LojaVirtual.Repositories.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace LojaVirtual.Controllers
 {
@@ -14,11 +12,13 @@ namespace LojaVirtual.Controllers
     {
         private CarrinhoCompra _carrinhoCompra;
         private IProdutoRepository _produtoRepository;
+        private IMapper _mapper;
 
-        public CarrinhoCompraController(CarrinhoCompra carrinhoCompra, IProdutoRepository produtoRepository)
+        public CarrinhoCompraController(CarrinhoCompra carrinhoCompra, IProdutoRepository produtoRepository, IMapper mapper)
         {
             _carrinhoCompra = carrinhoCompra;
             _produtoRepository = produtoRepository;
+            _mapper = mapper;
         }
         public IActionResult Index()
         {
@@ -31,11 +31,8 @@ namespace LojaVirtual.Controllers
                 //TODO - Implementar AutoMapper...
                 Produto produto = _produtoRepository.ObterProduto(item.Id);
 
-                ProdutoItem produtoItem = new ProdutoItem();
-                produtoItem.Id = produto.Id;
-                produtoItem.Nome = produto.Nome;
-                produtoItem.Imagens = produto.Imagens;
-                produtoItem.Valor = produto.Valor;
+                ProdutoItem produtoItem = _mapper.Map<ProdutoItem>(produto);
+                 
                 produtoItem.QuantidadeProdutoCarrinho = item.QuantidadeProdutoCarrinho;
 
                 produtoItemCompleto.Add(produtoItem);
@@ -55,7 +52,6 @@ namespace LojaVirtual.Controllers
             }
             else
             {
-                //TODO - Caso o produto já exista, deve ser adicionar uma quantidade maior ao inves adicionar um novo objeto a lista.
                 var item = new ProdutoItem() { Id = id, QuantidadeProdutoCarrinho = 1 };
                 _carrinhoCompra.Cadastrar(item);
 
@@ -64,9 +60,21 @@ namespace LojaVirtual.Controllers
         }
         public IActionResult AlterarQuantidade(int id, int quantidade)
         {
+            Produto produto = _produtoRepository.ObterProduto(id);
+
+            if(quantidade < 1 )
+            {
+                return BadRequest(new { mensagem = Mensagem.MSG_E007 });
+            }
+            else if (quantidade > produto.Quantidade)
+            {
+                return BadRequest(new { mensagem = Mensagem.MSG_E008 });
+            }
+
+
             var item = new ProdutoItem() { Id = id, QuantidadeProdutoCarrinho = quantidade };
             _carrinhoCompra.Atualizar(item);
-            return RedirectToAction(nameof(Index));
+            return Ok();
         }
         public IActionResult RemoverItem(int id)
         {
