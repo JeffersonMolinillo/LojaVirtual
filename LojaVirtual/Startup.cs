@@ -1,28 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using LojaVirtual.Database;
+using LojaVirtual.Libraries.AutoMapper;
+using LojaVirtual.Libraries.CarrinhoCompra;
+using LojaVirtual.Libraries.Email;
+using LojaVirtual.Libraries.Gerenciador.Frete;
+using LojaVirtual.Libraries.Login;
+using LojaVirtual.Libraries.Middleware;
+using LojaVirtual.Libraries.Sessao;
+using LojaVirtual.Repositories;
+using LojaVirtual.Repositories.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore.SqlServer;
-using Microsoft.EntityFrameworkCore;
-using LojaVirtual.Repositories;
-using LojaVirtual.Repositories.Contracts;
-using LojaVirtual.Libraries.Sessao;
-using LojaVirtual.Libraries.Login;
-using System.Net.Mail;
 using System.Net;
-using LojaVirtual.Libraries.Email;
-using LojaVirtual.Libraries.Middleware;
-using LojaVirtual.Libraries.CarrinhoCompra;
-using AutoMapper;
-using LojaVirtual.Libraries.AutoMapper;
+using System.Net.Mail;
+using WSCorreios;
 
 namespace LojaVirtual
 {
@@ -67,9 +63,17 @@ namespace LojaVirtual
 
                 return smtp;
             });
+
+
+            services.AddScoped<CalcPrecoPrazoWSSoap>(options => {
+                var servico = new CalcPrecoPrazoWSSoapClient(CalcPrecoPrazoWSSoapClient.EndpointConfiguration.CalcPrecoPrazoWSSoap);
+                return servico;
+            });
             services.AddScoped<GerenciarEmail>();
             services.AddScoped<LojaVirtual.Libraries.Cookie.Cookie>();
             services.AddScoped<CarrinhoCompra>();
+            services.AddScoped<WSCorreiosCalcularFrete>();
+            services.AddScoped<CalcularPacote>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {

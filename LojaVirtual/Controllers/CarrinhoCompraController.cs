@@ -1,10 +1,15 @@
 ﻿using AutoMapper;
 using LojaVirtual.Libraries.CarrinhoCompra;
+using LojaVirtual.Libraries.Gerenciador.Frete;
 using LojaVirtual.Libraries.Lang;
+using LojaVirtual.Models;
+using LojaVirtual.Models.Contants;
 using LojaVirtual.Models.ProdutoAgregador;
 using LojaVirtual.Repositories.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace LojaVirtual.Controllers
 {
@@ -13,14 +18,25 @@ namespace LojaVirtual.Controllers
         private CarrinhoCompra _carrinhoCompra;
         private IProdutoRepository _produtoRepository;
         private IMapper _mapper;
+        private WSCorreiosCalcularFrete _WsCorreios;
+        private CalcularPacote _calcularPacote;
 
-        public CarrinhoCompraController(CarrinhoCompra carrinhoCompra, IProdutoRepository produtoRepository, IMapper mapper)
+        public CarrinhoCompraController(CarrinhoCompra carrinhoCompra, IProdutoRepository produtoRepository, IMapper mapper, WSCorreiosCalcularFrete wsCorreios, CalcularPacote calcularPacote)
         {
             _carrinhoCompra = carrinhoCompra;
             _produtoRepository = produtoRepository;
             _mapper = mapper;
+            _WsCorreios = wsCorreios;
+            _calcularPacote = calcularPacote;
         }
         public IActionResult Index()
+        {
+            List<ProdutoItem> produtoItemCompleto = CarregarProdutoDB();
+
+            return View(produtoItemCompleto);
+        }
+
+        private List<ProdutoItem> CarregarProdutoDB()
         {
             List<ProdutoItem> produtoItemNoCarrinho = _carrinhoCompra.Consultar();
 
@@ -32,13 +48,13 @@ namespace LojaVirtual.Controllers
                 Produto produto = _produtoRepository.ObterProduto(item.Id);
 
                 ProdutoItem produtoItem = _mapper.Map<ProdutoItem>(produto);
-                 
+
                 produtoItem.QuantidadeProdutoCarrinho = item.QuantidadeProdutoCarrinho;
 
                 produtoItemCompleto.Add(produtoItem);
             }
 
-            return View(produtoItemCompleto);
+            return produtoItemCompleto;
         }
 
         //Item ID = ID Produto
@@ -46,7 +62,7 @@ namespace LojaVirtual.Controllers
         {
             Produto produto = _produtoRepository.ObterProduto(id);
 
-            if(produto == null)
+            if (produto == null)
             {
                 return View("NaoExisteItem");
             }
@@ -62,7 +78,7 @@ namespace LojaVirtual.Controllers
         {
             Produto produto = _produtoRepository.ObterProduto(id);
 
-            if(quantidade < 1 )
+            if (quantidade < 1)
             {
                 return BadRequest(new { mensagem = Mensagem.MSG_E007 });
             }
@@ -80,6 +96,36 @@ namespace LojaVirtual.Controllers
         {
             _carrinhoCompra.Remover(new ProdutoItem() { Id = id });
             return RedirectToAction(nameof(Index));
+        }
+
+
+        public async Task<IActionResult> CalcularFrete(int cepDestino)
+        {
+            try
+            {
+                List<ProdutoItem> produtos = CarregarProdutoDB();
+
+
+                List<Pacote> pacotes = (List<Pacote>)_calcularPacote.CalcularPacotesDeProduto(produtos);
+
+
+                ValorPrazoFrete valorPAC = await _WsCorreios.CalcularFrete(cepDestino.ToString(), TipoFreteConstant.PAC, pacotes);
+                ValorPrazoFrete valorSEDEX = await _WsCorreios.CalcularFrete(cepDestino.ToString(), TipoFreteConstant.SEDEX, pacotes);
+                ValorPrazoFrete valorSEDEX10 = await _WsCorreios.CalcularFrete(cepDestino.ToString(), TipoFreteConstant.SEDEX10, pacotes);
+
+                List<ValorPrazoFrete> lista = new List<ValorPrazoFrete>();
+                lista.Add(valorPAC);
+                lista.Add(valorSEDEX);
+                lista.Add(valorSEDEX10);
+                return Ok(lista);
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+
+
         }
     }
 }
