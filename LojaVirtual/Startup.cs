@@ -16,9 +16,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Net;
 using System.Net.Mail;
-using WSCorreios;
+using System.ServiceModel;
+using WSCorreiosHTTP;
 
 namespace LojaVirtual
 {
@@ -71,9 +73,18 @@ namespace LojaVirtual
             });
             services.AddScoped<GerenciarEmail>();
             services.AddScoped<LojaVirtual.Libraries.Cookie.Cookie>();
-            services.AddScoped<CarrinhoCompra>();
+            services.AddScoped<CookieCarrinhoCompra>();
+            services.AddScoped<CookieValorPrazoFrete>();
             services.AddScoped<WSCorreiosCalcularFrete>();
             services.AddScoped<CalcularPacote>();
+
+            services.AddScoped<CalcPrecoPrazoWSSoap>(options => {
+                var servico = new CalcPrecoPrazoWSSoapClient(CalcPrecoPrazoWSSoapClient.EndpointConfiguration.CalcPrecoPrazoWSSoap);
+                ((IContextChannel)servico.InnerChannel).OperationTimeout = new TimeSpan(0, 60, 0);
+
+                return servico;
+            });
+
 
             services.Configure<CookiePolicyOptions>(options =>
             {

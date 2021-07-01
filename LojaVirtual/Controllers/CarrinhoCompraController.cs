@@ -15,13 +15,13 @@ namespace LojaVirtual.Controllers
 {
     public class CarrinhoCompraController : Controller
     {
-        private CarrinhoCompra _carrinhoCompra;
+        private CookieCarrinhoCompra _carrinhoCompra;
         private IProdutoRepository _produtoRepository;
         private IMapper _mapper;
         private WSCorreiosCalcularFrete _WsCorreios;
         private CalcularPacote _calcularPacote;
 
-        public CarrinhoCompraController(CarrinhoCompra carrinhoCompra, IProdutoRepository produtoRepository, IMapper mapper, WSCorreiosCalcularFrete wsCorreios, CalcularPacote calcularPacote)
+        public CarrinhoCompraController(CookieCarrinhoCompra carrinhoCompra, IProdutoRepository produtoRepository, IMapper mapper, WSCorreiosCalcularFrete wsCorreios, CalcularPacote calcularPacote)
         {
             _carrinhoCompra = carrinhoCompra;
             _produtoRepository = produtoRepository;
@@ -114,9 +114,12 @@ namespace LojaVirtual.Controllers
                 ValorPrazoFrete valorSEDEX10 = await _WsCorreios.CalcularFrete(cepDestino.ToString(), TipoFreteConstant.SEDEX10, pacotes);
 
                 List<ValorPrazoFrete> lista = new List<ValorPrazoFrete>();
-                lista.Add(valorPAC);
-                lista.Add(valorSEDEX);
-                lista.Add(valorSEDEX10);
+                if(valorPAC != null)  lista.Add(valorPAC);
+                if (valorSEDEX != null) lista.Add(valorSEDEX);
+                if (valorSEDEX10 != null) lista.Add(valorSEDEX10);
+
+
+
                 return Ok(lista);
 
             }

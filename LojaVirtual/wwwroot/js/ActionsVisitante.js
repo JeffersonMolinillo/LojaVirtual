@@ -5,18 +5,81 @@
     MudarQuantidadeProdutoCarrinho();
 
     MascaraCep();
-    
+    AcaoCalcularFreteBTN();
+    AJAXCalcularFrete(false);
 
 });
 
-function AJAXCalcularFrete() {
-    $(".btn-calcular-frete").click(function () {
-        var cep = $(".cep").val().replace(".", "").replace("-", "");
-
-        // Ajax
+function AcaoCalcularFreteBTN() {
+    $(".btn-calcular-frete").click(function (e) {
+        AJAXCalcularFrete(true);
+        e.preventDefault();
     });
 }
 
+function AJAXCalcularFrete(callByButton) {
+
+
+    if (callByButton == false) {
+        if ($.cookie('Carrinho.Cep') != undefined) {
+            $(".cep").val($.cookie('Carrinho.Cep'));
+        }
+    }
+
+    var cep = $(".cep").val().replace(".", "").replace("-", "");
+    $.removeCookie("Carrinho.TipoFrete");
+    var img = "<br/> <img src='\\img\\loading1.gif'/>";
+
+
+    if (cep.length == 8) {
+        $.cookie('Carrinho.Cep', $(".cep").val());
+        $(".container-frete").html(img);
+        $(".frete").text("R$ 0,00");
+        $(".total").text("R$ 0,00");
+
+        html = "";
+
+        $.ajax({
+            type: "GET",
+            url: "/CarrinhoCompra/CalcularFrete?cepDestino=" + cep,
+            error: function (data) {
+                MostrarMensagemDeErro("Opps! Tivemos um erro ao obter o Frete..." + data.Message);
+                console.info(data);
+            },
+            success: function (data) {
+
+                for (var i = 0; i < data.length; i++) {
+                    var tipoFrete = data[i].tipoFrete;
+                    var valor = data[i].valor;
+                    var prazo = data[i].prazo;
+
+                    html += "<dl class=\"dlist-align\"><dt><input type=\"radio\" name=\"frete\" value=\"" + tipoFrete + "\" /><input type=\"hidden\" name=\valor\" value=\"" + valor + "\" </dt> <dd>" + tipoFrete + " - " + NumberToReal(valor) + " ( " + prazo + " dia úteis) </dd ></dl > ";
+
+                }
+
+                $(".container-frete").html(html);
+                $(".container-frete").find("input[type=radio]").change(function () {
+                    var valorFrete = parseFloat(($(this).parent().find("input[type=hidden]").val()));
+
+                    $.cookie("Carrinho.TipoFrete", $(this).val());
+
+                    $(".frete").text(NumberToReal(valorFrete));
+
+                    var subTotal = parseFloat($(".subtotal").text().replace("R$", "").replace(".", "").replace(",", "."));
+                    console.info(subTotal);
+                    var totalCarrinho = parseFloat(valorFrete + subTotal);
+                    $(".total").text(NumberToReal(totalCarrinho));
+                });
+            //    console.log(data);
+            }
+        });
+    } else {
+        if (callByButton == true) {
+            $(".container-frete").html("");
+            MostrarMensagemDeErro("Digite o CEP para calcular o frete");
+        }
+    }
+}
 
 function MascaraCep() {
     $(".cep").mask("00.000-000");
@@ -38,13 +101,6 @@ function MudarQuantidadeProdutoCarrinho() {
         }
     });
 }
-
-
-
-
-
-
-
 
 
 
@@ -77,6 +133,7 @@ function AlteracoesVisuaisDoProdutoCarrinho(produto, operacao) {
             produto.quantidadeProdutoCarrinhoNova = produto.quantidadeProdutoCarrinhoAntiga + 1;
             AtualizarQuantidadeEValor(produto);
             AJAXComunicarAlteracaoQuantidadeProduto(produto);
+
         }
 
     }
@@ -104,6 +161,7 @@ function AJAXComunicarAlteracaoQuantidadeProduto(produto) {
             AtualizarQuantidadeEValor(produto);
         },
         success: function () {
+            AJAXCalcularFrete();
         }
     });
 }
@@ -142,69 +200,69 @@ function AtualizarSubtotal() {
 
 
 function MudarImagePrincipalProduto() {
-            $(".img-small-wrap img").click(function () {
-                var Caminho = $(this).attr("src");
-                $(".img-big-wrap img").attr("src", Caminho);
-                $(".img-big-wrap a").attr("href", Caminho);
-            });
-        }
+    $(".img-small-wrap img").click(function () {
+        var Caminho = $(this).attr("src");
+        $(".img-big-wrap img").attr("src", Caminho);
+        $(".img-big-wrap a").attr("href", Caminho);
+    });
+}
 function MoverScrollOrdenacao() {
-            if (window.location.hash.length > 0) {
-                var hash = window.location.hash;
-                if (hash == "#posicao-produto") {
-                    window.scrollBy(0, 473);
-                }
-            }
+    if (window.location.hash.length > 0) {
+        var hash = window.location.hash;
+        if (hash == "#posicao-produto") {
+            window.scrollBy(0, 473);
         }
+    }
+}
 
 
 function MudarOrdenacao() {
-            $("#ordenacao").change(function () {
-                //TODO - Redirecionar para a tela Home/Index passando as QueryString de Ordenação e mantendo a Pagina e a pesquisa.
-                var Pagina = 1;
-                var Pesquisa = "";
-                var Ordenacao = $(this).val();
-                var Fragmento = "#posicao-produto";
+    $("#ordenacao").change(function () {
+        //TODO - Redirecionar para a tela Home/Index passando as QueryString de Ordenação e mantendo a Pagina e a pesquisa.
+        var Pagina = 1;
+        var Pesquisa = "";
+        var Ordenacao = $(this).val();
+        var Fragmento = "#posicao-produto";
 
-                var QueryString = new URLSearchParams(window.location.search);
-                if (QueryString.has("pagina")) {
-                    Pagina = QueryString.get("pagina");
-                }
-                if (QueryString.has("pesquisa")) {
-                    Pesquisa = QueryString.get("pesquisa");
-                }
-                if ($("#breadcrumb").length > 0) {
-                    Fragmento = "";
-                }
-
-                var URL = window.location.protocol + "//" + window.location.host + window.location.pathname;
-
-                var URLComParametros = URL + "?pagina=" + Pagina + "&pesquisa=" + Pesquisa + "&ordenacao=" + Ordenacao + Fragmento;
-                window.location.href = URLComParametros;
-
-            }
-
-
-            )
-        };
-
-
-
-
-
-    /*--------------------------------------------------*/
-
-
-    class ProdutoQuantidadeEValor {
-        constructor(produtoId, quantidadeEstoque, valorUnitario, campoQuantidadeProdutoCarrinho, campoValor, quantidadeProdutoCarrinhoAntiga, quantidadeProdutoCarrinhoNova) {
-            this.produtoId = produtoId;
-            this.quantidadeEstoque = quantidadeEstoque;
-            this.valorUnitario = valorUnitario;
-
-            this.quantidadeProdutoCarrinhoAntiga = quantidadeProdutoCarrinhoAntiga;
-            this.quantidadeProdutoCarrinhoNova = quantidadeProdutoCarrinhoNova;
-
-            this.campoQuantidadeProdutoCarrinho = campoQuantidadeProdutoCarrinho;
-            this.campoValor = campoValor;
+        var QueryString = new URLSearchParams(window.location.search);
+        if (QueryString.has("pagina")) {
+            Pagina = QueryString.get("pagina");
         }
+        if (QueryString.has("pesquisa")) {
+            Pesquisa = QueryString.get("pesquisa");
+        }
+        if ($("#breadcrumb").length > 0) {
+            Fragmento = "";
+        }
+
+        var URL = window.location.protocol + "//" + window.location.host + window.location.pathname;
+
+        var URLComParametros = URL + "?pagina=" + Pagina + "&pesquisa=" + Pesquisa + "&ordenacao=" + Ordenacao + Fragmento;
+        window.location.href = URLComParametros;
+
     }
+
+
+    )
+};
+
+
+
+
+
+/*--------------------------------------------------*/
+
+
+class ProdutoQuantidadeEValor {
+    constructor(produtoId, quantidadeEstoque, valorUnitario, campoQuantidadeProdutoCarrinho, campoValor, quantidadeProdutoCarrinhoAntiga, quantidadeProdutoCarrinhoNova) {
+        this.produtoId = produtoId;
+        this.quantidadeEstoque = quantidadeEstoque;
+        this.valorUnitario = valorUnitario;
+
+        this.quantidadeProdutoCarrinhoAntiga = quantidadeProdutoCarrinhoAntiga;
+        this.quantidadeProdutoCarrinhoNova = quantidadeProdutoCarrinhoNova;
+
+        this.campoQuantidadeProdutoCarrinho = campoQuantidadeProdutoCarrinho;
+        this.campoValor = campoValor;
+    }
+}

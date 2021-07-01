@@ -7,74 +7,76 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WSCorreios
+using System;
+
+namespace WSCorreiosHTTP
 {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="WSCorreios.CalcPrecoPrazoWSSoap")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="WSCorreiosHTTP.CalcPrecoPrazoWSSoap")]
     public interface CalcPrecoPrazoWSSoap
     {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CalcPrecoPrazo", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<WSCorreios.cResultado> CalcPrecoPrazoAsync(string nCdEmpresa, string sDsSenha, string nCdServico, string sCepOrigem, string sCepDestino, string nVlPeso, int nCdFormato, decimal nVlComprimento, decimal nVlAltura, decimal nVlLargura, decimal nVlDiametro, string sCdMaoPropria, decimal nVlValorDeclarado, string sCdAvisoRecebimento);
+        System.Threading.Tasks.Task<WSCorreiosHTTP.cResultado> CalcPrecoPrazoAsync(string nCdEmpresa, string sDsSenha, string nCdServico, string sCepOrigem, string sCepDestino, string nVlPeso, int nCdFormato, decimal nVlComprimento, decimal nVlAltura, decimal nVlLargura, decimal nVlDiametro, string sCdMaoPropria, decimal nVlValorDeclarado, string sCdAvisoRecebimento);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CalcPrecoPrazoData", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<WSCorreios.cResultado> CalcPrecoPrazoDataAsync(string nCdEmpresa, string sDsSenha, string nCdServico, string sCepOrigem, string sCepDestino, string nVlPeso, int nCdFormato, decimal nVlComprimento, decimal nVlAltura, decimal nVlLargura, decimal nVlDiametro, string sCdMaoPropria, decimal nVlValorDeclarado, string sCdAvisoRecebimento, string sDtCalculo);
+        System.Threading.Tasks.Task<WSCorreiosHTTP.cResultado> CalcPrecoPrazoDataAsync(string nCdEmpresa, string sDsSenha, string nCdServico, string sCepOrigem, string sCepDestino, string nVlPeso, int nCdFormato, decimal nVlComprimento, decimal nVlAltura, decimal nVlLargura, decimal nVlDiametro, string sCdMaoPropria, decimal nVlValorDeclarado, string sCdAvisoRecebimento, string sDtCalculo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CalcPrecoPrazoRestricao", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<WSCorreios.cResultado> CalcPrecoPrazoRestricaoAsync(string nCdEmpresa, string sDsSenha, string nCdServico, string sCepOrigem, string sCepDestino, string nVlPeso, int nCdFormato, decimal nVlComprimento, decimal nVlAltura, decimal nVlLargura, decimal nVlDiametro, string sCdMaoPropria, decimal nVlValorDeclarado, string sCdAvisoRecebimento, string sDtCalculo);
+        System.Threading.Tasks.Task<WSCorreiosHTTP.cResultado> CalcPrecoPrazoRestricaoAsync(string nCdEmpresa, string sDsSenha, string nCdServico, string sCepOrigem, string sCepDestino, string nVlPeso, int nCdFormato, decimal nVlComprimento, decimal nVlAltura, decimal nVlLargura, decimal nVlDiametro, string sCdMaoPropria, decimal nVlValorDeclarado, string sCdAvisoRecebimento, string sDtCalculo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CalcPreco", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<WSCorreios.cResultado> CalcPrecoAsync(string nCdEmpresa, string sDsSenha, string nCdServico, string sCepOrigem, string sCepDestino, string nVlPeso, int nCdFormato, decimal nVlComprimento, decimal nVlAltura, decimal nVlLargura, decimal nVlDiametro, string sCdMaoPropria, decimal nVlValorDeclarado, string sCdAvisoRecebimento);
+        System.Threading.Tasks.Task<WSCorreiosHTTP.cResultado> CalcPrecoAsync(string nCdEmpresa, string sDsSenha, string nCdServico, string sCepOrigem, string sCepDestino, string nVlPeso, int nCdFormato, decimal nVlComprimento, decimal nVlAltura, decimal nVlLargura, decimal nVlDiametro, string sCdMaoPropria, decimal nVlValorDeclarado, string sCdAvisoRecebimento);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CalcPrecoData", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<WSCorreios.cResultado> CalcPrecoDataAsync(string nCdEmpresa, string sDsSenha, string nCdServico, string sCepOrigem, string sCepDestino, string nVlPeso, int nCdFormato, decimal nVlComprimento, decimal nVlAltura, decimal nVlLargura, decimal nVlDiametro, string sCdMaoPropria, decimal nVlValorDeclarado, string sCdAvisoRecebimento, string sDtCalculo);
+        System.Threading.Tasks.Task<WSCorreiosHTTP.cResultado> CalcPrecoDataAsync(string nCdEmpresa, string sDsSenha, string nCdServico, string sCepOrigem, string sCepDestino, string nVlPeso, int nCdFormato, decimal nVlComprimento, decimal nVlAltura, decimal nVlLargura, decimal nVlDiametro, string sCdMaoPropria, decimal nVlValorDeclarado, string sCdAvisoRecebimento, string sDtCalculo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CalcPrazo", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<WSCorreios.cResultado> CalcPrazoAsync(string nCdServico, string sCepOrigem, string sCepDestino);
+        System.Threading.Tasks.Task<WSCorreiosHTTP.cResultado> CalcPrazoAsync(string nCdServico, string sCepOrigem, string sCepDestino);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CalcPrazoData", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<WSCorreios.cResultado> CalcPrazoDataAsync(string nCdServico, string sCepOrigem, string sCepDestino, string sDtCalculo);
+        System.Threading.Tasks.Task<WSCorreiosHTTP.cResultado> CalcPrazoDataAsync(string nCdServico, string sCepOrigem, string sCepDestino, string sDtCalculo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CalcPrazoRestricao", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<WSCorreios.cResultado> CalcPrazoRestricaoAsync(string nCdServico, string sCepOrigem, string sCepDestino, string sDtCalculo);
+        System.Threading.Tasks.Task<WSCorreiosHTTP.cResultado> CalcPrazoRestricaoAsync(string nCdServico, string sCepOrigem, string sCepDestino, string sDtCalculo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CalcPrecoFAC", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<WSCorreios.cResultado> CalcPrecoFACAsync(string nCdServico, string nVlPeso, string strDataCalculo);
+        System.Threading.Tasks.Task<WSCorreiosHTTP.cResultado> CalcPrecoFACAsync(string nCdServico, string nVlPeso, string strDataCalculo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CalcDataMaxima", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<WSCorreios.cResultadoObjeto> CalcDataMaximaAsync(string codigoObjeto);
+        System.Threading.Tasks.Task<WSCorreiosHTTP.cResultadoObjeto> CalcDataMaximaAsync(string codigoObjeto);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListaServicos", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<WSCorreios.cResultadoServicos> ListaServicosAsync();
+        System.Threading.Tasks.Task<WSCorreiosHTTP.cResultadoServicos> ListaServicosAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListaServicosSTAR", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<WSCorreios.cResultadoServicos> ListaServicosSTARAsync();
+        System.Threading.Tasks.Task<WSCorreiosHTTP.cResultadoServicos> ListaServicosSTARAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/VerificaModal", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<WSCorreios.cResultadoModal> VerificaModalAsync(string nCdServico, string sCepOrigem, string sCepDestino);
+        System.Threading.Tasks.Task<WSCorreiosHTTP.cResultadoModal> VerificaModalAsync(string nCdServico, string sCepOrigem, string sCepDestino);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/getVersao", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<WSCorreios.versao> getVersaoAsync();
+        System.Threading.Tasks.Task<WSCorreiosHTTP.versao> getVersaoAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/calcPrazoNovo", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<WSCorreios.cResultado> calcPrazoNovoAsync(string nCdServico, string sCepOrigem, string sCepDestino, string sDtCalculo, string strVerificaRestricao);
+        System.Threading.Tasks.Task<WSCorreiosHTTP.cResultado> calcPrazoNovoAsync(string nCdServico, string sCepOrigem, string sCepDestino, string sDtCalculo, string strVerificaRestricao);
     }
     
     /// <remarks/>
@@ -922,13 +924,13 @@ namespace WSCorreios
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    public interface CalcPrecoPrazoWSSoapChannel : WSCorreios.CalcPrecoPrazoWSSoap, System.ServiceModel.IClientChannel
+    public interface CalcPrecoPrazoWSSoapChannel : WSCorreiosHTTP.CalcPrecoPrazoWSSoap, System.ServiceModel.IClientChannel
     {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    public partial class CalcPrecoPrazoWSSoapClient : System.ServiceModel.ClientBase<WSCorreios.CalcPrecoPrazoWSSoap>, WSCorreios.CalcPrecoPrazoWSSoap
+    public partial class CalcPrecoPrazoWSSoapClient : System.ServiceModel.ClientBase<WSCorreiosHTTP.CalcPrecoPrazoWSSoap>, WSCorreiosHTTP.CalcPrecoPrazoWSSoap
     {
         
         /// <summary>
@@ -964,77 +966,77 @@ namespace WSCorreios
         {
         }
         
-        public System.Threading.Tasks.Task<WSCorreios.cResultado> CalcPrecoPrazoAsync(string nCdEmpresa, string sDsSenha, string nCdServico, string sCepOrigem, string sCepDestino, string nVlPeso, int nCdFormato, decimal nVlComprimento, decimal nVlAltura, decimal nVlLargura, decimal nVlDiametro, string sCdMaoPropria, decimal nVlValorDeclarado, string sCdAvisoRecebimento)
+        public System.Threading.Tasks.Task<WSCorreiosHTTP.cResultado> CalcPrecoPrazoAsync(string nCdEmpresa, string sDsSenha, string nCdServico, string sCepOrigem, string sCepDestino, string nVlPeso, int nCdFormato, decimal nVlComprimento, decimal nVlAltura, decimal nVlLargura, decimal nVlDiametro, string sCdMaoPropria, decimal nVlValorDeclarado, string sCdAvisoRecebimento)
         {
             return base.Channel.CalcPrecoPrazoAsync(nCdEmpresa, sDsSenha, nCdServico, sCepOrigem, sCepDestino, nVlPeso, nCdFormato, nVlComprimento, nVlAltura, nVlLargura, nVlDiametro, sCdMaoPropria, nVlValorDeclarado, sCdAvisoRecebimento);
         }
         
-        public System.Threading.Tasks.Task<WSCorreios.cResultado> CalcPrecoPrazoDataAsync(string nCdEmpresa, string sDsSenha, string nCdServico, string sCepOrigem, string sCepDestino, string nVlPeso, int nCdFormato, decimal nVlComprimento, decimal nVlAltura, decimal nVlLargura, decimal nVlDiametro, string sCdMaoPropria, decimal nVlValorDeclarado, string sCdAvisoRecebimento, string sDtCalculo)
+        public System.Threading.Tasks.Task<WSCorreiosHTTP.cResultado> CalcPrecoPrazoDataAsync(string nCdEmpresa, string sDsSenha, string nCdServico, string sCepOrigem, string sCepDestino, string nVlPeso, int nCdFormato, decimal nVlComprimento, decimal nVlAltura, decimal nVlLargura, decimal nVlDiametro, string sCdMaoPropria, decimal nVlValorDeclarado, string sCdAvisoRecebimento, string sDtCalculo)
         {
             return base.Channel.CalcPrecoPrazoDataAsync(nCdEmpresa, sDsSenha, nCdServico, sCepOrigem, sCepDestino, nVlPeso, nCdFormato, nVlComprimento, nVlAltura, nVlLargura, nVlDiametro, sCdMaoPropria, nVlValorDeclarado, sCdAvisoRecebimento, sDtCalculo);
         }
         
-        public System.Threading.Tasks.Task<WSCorreios.cResultado> CalcPrecoPrazoRestricaoAsync(string nCdEmpresa, string sDsSenha, string nCdServico, string sCepOrigem, string sCepDestino, string nVlPeso, int nCdFormato, decimal nVlComprimento, decimal nVlAltura, decimal nVlLargura, decimal nVlDiametro, string sCdMaoPropria, decimal nVlValorDeclarado, string sCdAvisoRecebimento, string sDtCalculo)
+        public System.Threading.Tasks.Task<WSCorreiosHTTP.cResultado> CalcPrecoPrazoRestricaoAsync(string nCdEmpresa, string sDsSenha, string nCdServico, string sCepOrigem, string sCepDestino, string nVlPeso, int nCdFormato, decimal nVlComprimento, decimal nVlAltura, decimal nVlLargura, decimal nVlDiametro, string sCdMaoPropria, decimal nVlValorDeclarado, string sCdAvisoRecebimento, string sDtCalculo)
         {
             return base.Channel.CalcPrecoPrazoRestricaoAsync(nCdEmpresa, sDsSenha, nCdServico, sCepOrigem, sCepDestino, nVlPeso, nCdFormato, nVlComprimento, nVlAltura, nVlLargura, nVlDiametro, sCdMaoPropria, nVlValorDeclarado, sCdAvisoRecebimento, sDtCalculo);
         }
         
-        public System.Threading.Tasks.Task<WSCorreios.cResultado> CalcPrecoAsync(string nCdEmpresa, string sDsSenha, string nCdServico, string sCepOrigem, string sCepDestino, string nVlPeso, int nCdFormato, decimal nVlComprimento, decimal nVlAltura, decimal nVlLargura, decimal nVlDiametro, string sCdMaoPropria, decimal nVlValorDeclarado, string sCdAvisoRecebimento)
+        public System.Threading.Tasks.Task<WSCorreiosHTTP.cResultado> CalcPrecoAsync(string nCdEmpresa, string sDsSenha, string nCdServico, string sCepOrigem, string sCepDestino, string nVlPeso, int nCdFormato, decimal nVlComprimento, decimal nVlAltura, decimal nVlLargura, decimal nVlDiametro, string sCdMaoPropria, decimal nVlValorDeclarado, string sCdAvisoRecebimento)
         {
             return base.Channel.CalcPrecoAsync(nCdEmpresa, sDsSenha, nCdServico, sCepOrigem, sCepDestino, nVlPeso, nCdFormato, nVlComprimento, nVlAltura, nVlLargura, nVlDiametro, sCdMaoPropria, nVlValorDeclarado, sCdAvisoRecebimento);
         }
         
-        public System.Threading.Tasks.Task<WSCorreios.cResultado> CalcPrecoDataAsync(string nCdEmpresa, string sDsSenha, string nCdServico, string sCepOrigem, string sCepDestino, string nVlPeso, int nCdFormato, decimal nVlComprimento, decimal nVlAltura, decimal nVlLargura, decimal nVlDiametro, string sCdMaoPropria, decimal nVlValorDeclarado, string sCdAvisoRecebimento, string sDtCalculo)
+        public System.Threading.Tasks.Task<WSCorreiosHTTP.cResultado> CalcPrecoDataAsync(string nCdEmpresa, string sDsSenha, string nCdServico, string sCepOrigem, string sCepDestino, string nVlPeso, int nCdFormato, decimal nVlComprimento, decimal nVlAltura, decimal nVlLargura, decimal nVlDiametro, string sCdMaoPropria, decimal nVlValorDeclarado, string sCdAvisoRecebimento, string sDtCalculo)
         {
             return base.Channel.CalcPrecoDataAsync(nCdEmpresa, sDsSenha, nCdServico, sCepOrigem, sCepDestino, nVlPeso, nCdFormato, nVlComprimento, nVlAltura, nVlLargura, nVlDiametro, sCdMaoPropria, nVlValorDeclarado, sCdAvisoRecebimento, sDtCalculo);
         }
         
-        public System.Threading.Tasks.Task<WSCorreios.cResultado> CalcPrazoAsync(string nCdServico, string sCepOrigem, string sCepDestino)
+        public System.Threading.Tasks.Task<WSCorreiosHTTP.cResultado> CalcPrazoAsync(string nCdServico, string sCepOrigem, string sCepDestino)
         {
             return base.Channel.CalcPrazoAsync(nCdServico, sCepOrigem, sCepDestino);
         }
         
-        public System.Threading.Tasks.Task<WSCorreios.cResultado> CalcPrazoDataAsync(string nCdServico, string sCepOrigem, string sCepDestino, string sDtCalculo)
+        public System.Threading.Tasks.Task<WSCorreiosHTTP.cResultado> CalcPrazoDataAsync(string nCdServico, string sCepOrigem, string sCepDestino, string sDtCalculo)
         {
             return base.Channel.CalcPrazoDataAsync(nCdServico, sCepOrigem, sCepDestino, sDtCalculo);
         }
         
-        public System.Threading.Tasks.Task<WSCorreios.cResultado> CalcPrazoRestricaoAsync(string nCdServico, string sCepOrigem, string sCepDestino, string sDtCalculo)
+        public System.Threading.Tasks.Task<WSCorreiosHTTP.cResultado> CalcPrazoRestricaoAsync(string nCdServico, string sCepOrigem, string sCepDestino, string sDtCalculo)
         {
             return base.Channel.CalcPrazoRestricaoAsync(nCdServico, sCepOrigem, sCepDestino, sDtCalculo);
         }
         
-        public System.Threading.Tasks.Task<WSCorreios.cResultado> CalcPrecoFACAsync(string nCdServico, string nVlPeso, string strDataCalculo)
+        public System.Threading.Tasks.Task<WSCorreiosHTTP.cResultado> CalcPrecoFACAsync(string nCdServico, string nVlPeso, string strDataCalculo)
         {
             return base.Channel.CalcPrecoFACAsync(nCdServico, nVlPeso, strDataCalculo);
         }
         
-        public System.Threading.Tasks.Task<WSCorreios.cResultadoObjeto> CalcDataMaximaAsync(string codigoObjeto)
+        public System.Threading.Tasks.Task<WSCorreiosHTTP.cResultadoObjeto> CalcDataMaximaAsync(string codigoObjeto)
         {
             return base.Channel.CalcDataMaximaAsync(codigoObjeto);
         }
         
-        public System.Threading.Tasks.Task<WSCorreios.cResultadoServicos> ListaServicosAsync()
+        public System.Threading.Tasks.Task<WSCorreiosHTTP.cResultadoServicos> ListaServicosAsync()
         {
             return base.Channel.ListaServicosAsync();
         }
         
-        public System.Threading.Tasks.Task<WSCorreios.cResultadoServicos> ListaServicosSTARAsync()
+        public System.Threading.Tasks.Task<WSCorreiosHTTP.cResultadoServicos> ListaServicosSTARAsync()
         {
             return base.Channel.ListaServicosSTARAsync();
         }
         
-        public System.Threading.Tasks.Task<WSCorreios.cResultadoModal> VerificaModalAsync(string nCdServico, string sCepOrigem, string sCepDestino)
+        public System.Threading.Tasks.Task<WSCorreiosHTTP.cResultadoModal> VerificaModalAsync(string nCdServico, string sCepOrigem, string sCepDestino)
         {
             return base.Channel.VerificaModalAsync(nCdServico, sCepOrigem, sCepDestino);
         }
         
-        public System.Threading.Tasks.Task<WSCorreios.versao> getVersaoAsync()
+        public System.Threading.Tasks.Task<WSCorreiosHTTP.versao> getVersaoAsync()
         {
             return base.Channel.getVersaoAsync();
         }
         
-        public System.Threading.Tasks.Task<WSCorreios.cResultado> calcPrazoNovoAsync(string nCdServico, string sCepOrigem, string sCepDestino, string sDtCalculo, string strVerificaRestricao)
+        public System.Threading.Tasks.Task<WSCorreiosHTTP.cResultado> calcPrazoNovoAsync(string nCdServico, string sCepOrigem, string sCepDestino, string sDtCalculo, string strVerificaRestricao)
         {
             return base.Channel.calcPrazoNovoAsync(nCdServico, sCepOrigem, sCepDestino, sDtCalculo, strVerificaRestricao);
         }
@@ -1055,6 +1057,8 @@ namespace WSCorreios
             {
                 System.ServiceModel.BasicHttpBinding result = new System.ServiceModel.BasicHttpBinding();
                 result.MaxBufferSize = int.MaxValue;
+                result.ReceiveTimeout = new TimeSpan(0, 4, 0);
+                result.SendTimeout = new TimeSpan(0, 4, 0);
                 result.ReaderQuotas = System.Xml.XmlDictionaryReaderQuotas.Max;
                 result.MaxReceivedMessageSize = int.MaxValue;
                 result.AllowCookies = true;
@@ -1080,11 +1084,11 @@ namespace WSCorreios
         {
             if ((endpointConfiguration == EndpointConfiguration.CalcPrecoPrazoWSSoap))
             {
-                return new System.ServiceModel.EndpointAddress("http://ws.correios.com.br:8083/calculador/CalcPrecoPrazo.asmx");
+                return new System.ServiceModel.EndpointAddress("http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx");
             }
             if ((endpointConfiguration == EndpointConfiguration.CalcPrecoPrazoWSSoap12))
             {
-                return new System.ServiceModel.EndpointAddress("http://ws.correios.com.br:8083/calculador/CalcPrecoPrazo.asmx");
+                return new System.ServiceModel.EndpointAddress("http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx");
             }
             throw new System.InvalidOperationException(string.Format("Não foi possível encontrar o ponto de extremidade com o nome \'{0}\'.", endpointConfiguration));
         }

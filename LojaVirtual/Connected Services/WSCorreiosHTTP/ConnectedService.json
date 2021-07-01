@@ -1,19 +1,16 @@
 ﻿{
   "ProviderId": "Microsoft.VisualStudio.ConnectedService.Wcf",
   "Version": "15.0.40203.910",
-  "GettingStartedDocument": {
-    "Uri": "https://go.microsoft.com/fwlink/?linkid=858517"
-  },
   "ExtendedData": {
     "inputs": [
-      "https://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx"
+      "http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx"
     ],
     "collectionTypes": [
       "System.Array",
       "System.Collections.Generic.Dictionary`2"
     ],
     "namespaceMappings": [
-      "*, WSCorreios"
+      "*, WSCorreiosHTTP"
     ],
     "references": [
       "AutoMapper, {AutoMapper, 6.1.1}",
@@ -320,6 +317,12 @@
       "System.Security.Principal, {Microsoft.NETCore.App, 2.2.0}",
       "System.Security.Principal.Windows, {System.Security.Principal.Windows, 4.5.0}",
       "System.Security.SecureString, {Microsoft.NETCore.App, 2.2.0}",
+      "System.ServiceModel, {System.ServiceModel.Primitives, 4.4.4}",
+      "System.ServiceModel.Duplex, {System.ServiceModel.Duplex, 4.4.4}",
+      "System.ServiceModel.Http, {System.ServiceModel.Http, 4.4.4}",
+      "System.ServiceModel.NetTcp, {System.ServiceModel.NetTcp, 4.4.4}",
+      "System.ServiceModel.Primitives, {System.ServiceModel.Primitives, 4.4.4}",
+      "System.ServiceModel.Security, {System.ServiceModel.Security, 4.4.4}",
       "System.ServiceModel.Web, {Microsoft.NETCore.App, 2.2.0}",
       "System.ServiceProcess, {Microsoft.NETCore.App, 2.2.0}",
       "System.Text.Encoding, {Microsoft.NETCore.App, 2.2.0}",

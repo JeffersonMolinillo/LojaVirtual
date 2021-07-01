@@ -132,6 +132,7 @@ namespace LojaVirtual.Controllers
             }
         }
 
+
         [HttpGet]
         [ClienteAutorizacao]
         public IActionResult Painel()

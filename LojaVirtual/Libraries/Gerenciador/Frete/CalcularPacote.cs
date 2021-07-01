@@ -19,13 +19,10 @@ namespace LojaVirtual.Libraries.Gerenciador.Frete
                     var comprimento = (pacote.Comprimento > item.Comprimento ? pacote.Comprimento : item.Comprimento);
                     var largura = (pacote.Largura > item.Largura ? pacote.Largura : item.Largura);
                     var altura = pacote.Altura + item.Altura;
+
                     var dimensao = comprimento + largura + altura;
 
-                    //Regras dos Correios
-                    //acima de 30kg
-                    //Dimensao > 200cm
-
-                    if (peso > 30 || dimensao > 200)
+                    if (peso > 30 || dimensao > 200 || altura > 105 || largura > 105)
                     {
                         pacotes.Add(pacote);
                         pacote = new Pacote();
