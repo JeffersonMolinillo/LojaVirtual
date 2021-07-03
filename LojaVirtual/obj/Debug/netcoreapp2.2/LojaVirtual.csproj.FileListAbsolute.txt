@@ -5469,3 +5469,4 @@ C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\LojaVirtual
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\LojaVirtual.genruntimeconfig.cache
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\LojaVirtual.csproj.CopyComplete
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\bin\Debug\netcoreapp2.2\Connected Services\WSCorreiosHTTP\ConnectedService.json
+C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Views\Pagamento\Index.cshtml.g.cs

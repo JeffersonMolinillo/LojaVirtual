@@ -10,6 +10,8 @@
 
 });
 
+
+    
 function AcaoCalcularFreteBTN() {
     $(".btn-calcular-frete").click(function (e) {
         AJAXCalcularFrete(true);
@@ -18,8 +20,7 @@ function AcaoCalcularFreteBTN() {
 }
 
 function AJAXCalcularFrete(callByButton) {
-
-
+    $(".btn-continuar").addClass("disabled");
     if (callByButton == false) {
         if ($.cookie('Carrinho.Cep') != undefined) {
             $(".cep").val($.cookie('Carrinho.Cep'));
@@ -28,7 +29,7 @@ function AJAXCalcularFrete(callByButton) {
 
     var cep = $(".cep").val().replace(".", "").replace("-", "");
     $.removeCookie("Carrinho.TipoFrete");
-    var img = "<br/> <img src='\\img\\loading1.gif'/>";
+    var img = "<br/> <img class=loading src='\\img\\loading1.gif'/>";
 
 
     if (cep.length == 8) {
@@ -62,6 +63,7 @@ function AJAXCalcularFrete(callByButton) {
                     var valorFrete = parseFloat(($(this).parent().find("input[type=hidden]").val()));
 
                     $.cookie("Carrinho.TipoFrete", $(this).val());
+                    $(".btn-continuar").removeClass("disabled");
 
                     $(".frete").text(NumberToReal(valorFrete));
 
@@ -70,7 +72,7 @@ function AJAXCalcularFrete(callByButton) {
                     var totalCarrinho = parseFloat(valorFrete + subTotal);
                     $(".total").text(NumberToReal(totalCarrinho));
                 });
-            //    console.log(data);
+                //    console.log(data);
             }
         });
     } else {

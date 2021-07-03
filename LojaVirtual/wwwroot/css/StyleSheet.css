@@ -121,3 +121,21 @@
 .container-frete{
     text-align: center;
 }
+.btn-continuar, .btn-continuar-comprando {
+    width: 354.5px;
+    height: 83px;
+    margin-top: 50px;
+    font-size:36px;
+}
+.box {
+    height: 100px;
+}
+.loading {
+    width: 60px;
+    text-align: center;
+    margin-left: 110px;
+}
+
+.dlist-align dd {
+    margin-left: 105px;
+}

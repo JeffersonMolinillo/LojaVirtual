@@ -25,7 +25,7 @@ namespace LojaVirtual.Libraries.Gerenciador.Frete
         public async Task<ValorPrazoFrete> CalcularFrete(string cepDestino, string tipoFrete, List<Pacote> pacotes)
         {
             List<ValorPrazoFrete> ValorDosPacotesPorFrete = new List<ValorPrazoFrete>();
-            foreach (var pacote in pacotes)
+            foreach (var pacote     in pacotes)
             {
                 var resultado = await CalcularValorPrazoFrete(cepDestino, tipoFrete, pacote);
                 if (resultado != null)

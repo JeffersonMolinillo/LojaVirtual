@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LojaVirtual.Controllers.Base;
 using LojaVirtual.Libraries.CarrinhoCompra;
 using LojaVirtual.Libraries.Gerenciador.Frete;
 using LojaVirtual.Libraries.Lang;
@@ -13,48 +14,18 @@ using System.Threading.Tasks;
 
 namespace LojaVirtual.Controllers
 {
-    public class CarrinhoCompraController : Controller
+    public class CarrinhoCompraController : BaseController
     {
-        private CookieCarrinhoCompra _carrinhoCompra;
-        private IProdutoRepository _produtoRepository;
-        private IMapper _mapper;
-        private WSCorreiosCalcularFrete _WsCorreios;
-        private CalcularPacote _calcularPacote;
-
-        public CarrinhoCompraController(CookieCarrinhoCompra carrinhoCompra, IProdutoRepository produtoRepository, IMapper mapper, WSCorreiosCalcularFrete wsCorreios, CalcularPacote calcularPacote)
+        public CarrinhoCompraController(CookieCarrinhoCompra carrinhoCompra, IProdutoRepository produtoRepository, IMapper mapper, WSCorreiosCalcularFrete wsCorreios, CalcularPacote calcularPacote, CookieValorPrazoFrete cookieValorPrazoFrete) : base(carrinhoCompra, produtoRepository, mapper, wsCorreios,calcularPacote,cookieValorPrazoFrete)
         {
-            _carrinhoCompra = carrinhoCompra;
-            _produtoRepository = produtoRepository;
-            _mapper = mapper;
-            _WsCorreios = wsCorreios;
-            _calcularPacote = calcularPacote;
+
         }
+
         public IActionResult Index()
         {
             List<ProdutoItem> produtoItemCompleto = CarregarProdutoDB();
 
             return View(produtoItemCompleto);
-        }
-
-        private List<ProdutoItem> CarregarProdutoDB()
-        {
-            List<ProdutoItem> produtoItemNoCarrinho = _carrinhoCompra.Consultar();
-
-            List<ProdutoItem> produtoItemCompleto = new List<ProdutoItem>();
-
-            foreach (var item in produtoItemNoCarrinho)
-            {
-                //TODO - Implementar AutoMapper...
-                Produto produto = _produtoRepository.ObterProduto(item.Id);
-
-                ProdutoItem produtoItem = _mapper.Map<ProdutoItem>(produto);
-
-                produtoItem.QuantidadeProdutoCarrinho = item.QuantidadeProdutoCarrinho;
-
-                produtoItemCompleto.Add(produtoItem);
-            }
-
-            return produtoItemCompleto;
         }
 
         //Item ID = ID Produto
@@ -69,7 +40,7 @@ namespace LojaVirtual.Controllers
             else
             {
                 var item = new ProdutoItem() { Id = id, QuantidadeProdutoCarrinho = 1 };
-                _carrinhoCompra.Cadastrar(item);
+                _cookieCarrinhoCompra.Cadastrar(item);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -89,12 +60,12 @@ namespace LojaVirtual.Controllers
 
 
             var item = new ProdutoItem() { Id = id, QuantidadeProdutoCarrinho = quantidade };
-            _carrinhoCompra.Atualizar(item);
+            _cookieCarrinhoCompra.Atualizar(item);
             return Ok();
         }
         public IActionResult RemoverItem(int id)
         {
-            _carrinhoCompra.Remover(new ProdutoItem() { Id = id });
+            _cookieCarrinhoCompra.Remover(new ProdutoItem() { Id = id });
             return RedirectToAction(nameof(Index));
         }
 
@@ -114,17 +85,19 @@ namespace LojaVirtual.Controllers
                 ValorPrazoFrete valorSEDEX10 = await _WsCorreios.CalcularFrete(cepDestino.ToString(), TipoFreteConstant.SEDEX10, pacotes);
 
                 List<ValorPrazoFrete> lista = new List<ValorPrazoFrete>();
-                if(valorPAC != null)  lista.Add(valorPAC);
+                if (valorPAC != null) lista.Add(valorPAC);
                 if (valorSEDEX != null) lista.Add(valorSEDEX);
                 if (valorSEDEX10 != null) lista.Add(valorSEDEX10);
 
-
+                _cookieValorPrazoFrete.Cadastrar(lista);
 
                 return Ok(lista);
 
             }
             catch (Exception e)
             {
+                _cookieValorPrazoFrete.Remover();
+
                 return BadRequest(e);
             }
 
