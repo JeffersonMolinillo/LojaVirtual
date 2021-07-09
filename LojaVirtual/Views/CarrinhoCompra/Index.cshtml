@@ -1,4 +1,5 @@
 ﻿@model List<LojaVirtual.Models.ProdutoAgregador.ProdutoItem>
+@inject LojaVirtual.Libraries.Login.LoginCliente _loginCliente;
 @{
     ViewData["Title"] = "Index";
     decimal Subtotal = 0.0M;
@@ -139,22 +140,16 @@
                     </div>
                 </aside>
                 <aside class="col-md-4">
-                    <button type="button" asp-action="Index" asp-controller="Pagamento" class="btn btn-success btn-continuar disabled btn-block">Continuar</button>
+                        @if (_loginCliente.GetCliente() != null)
+                        {
+                            <a type="button" asp-action="Index" asp-controller="Pagamento" class="btn btn-success btn-continuar disabled btn-block">Continuar</a>
+                        }
+                        else
+                        {
+                            <a asp-action="Login" asp-controller="Home" asp-area="Cliente" asp-route-returnUrl="@Url.Action("Index", "Pagamento", new { area = ""})" class="btn btn-success btn-continuar disabled btn-block">Continuar</a>
+
+                        }
                 </aside>
-
-
-                <!--<aside class="col-md-4">
-                    <div class="box">-->
-                @*@if (_loginCliente.GetCliente() == null)
-                    {
-                        <a asp-action="Login" asp-controller="Home" asp-area="Cliente" asp-route-returnUrl="@Url.Action("EnderecoEntrega", "CarrinhoCompra", new { area = "" })" class="btn btn-primary btn-continuar disabled">Continuar</a>
-                    }
-                    else
-                    {
-                        <a asp-action="EnderecoEntrega" asp-controller="CarrinhoCompra" class="btn btn-primary btn-continuar disabled">Continuar</a>
-                    }*@
-                <!--</div>
-                </aside>-->
             </div>
 
         </section>
@@ -175,7 +170,7 @@ else
             <br />
 
             <div class="offset-md-4 col-md-4">
-                <a class="btn btn-primary btn-continuar-comprando" asp-action="Index" asp-controller="Home"> 
+                <a class="btn btn-primary btn-continuar-comprando" asp-action="Index" asp-controller="Home">
                     Vamos comprar
                 </a>
             </div>

@@ -99,7 +99,7 @@ namespace LojaVirtual
             services.AddMemoryCache(); //Guardar os dados na memória
             services.AddSession(options =>
             {
-
+                options.Cookie.IsEssential = true;
             });
 
             services.AddScoped<Sessao>();

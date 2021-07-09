@@ -1,5 +1,6 @@
 ﻿@model List<Categoria>
-@{ 
+@inject LojaVirtual.Libraries.Login.LoginCliente _loginCliente;
+@{
     var pesquisa = Context.Request.Query["pesquisa"];
 }
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
@@ -9,8 +10,8 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        
-        
+
+
         <ul class="navbar-nav mr-auto">
             <li class="nav-item @((ViewContext.RouteData.Values["controller"].ToString() == "Home" && ViewContext.RouteData.Values["action"].ToString() == "Index") ? "active" : "" )">
                 <a class="nav-link" href="/"><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
@@ -40,12 +41,23 @@
             <li class="nav-item @((ViewContext.RouteData.Values["controller"].ToString() == "Home" && ViewContext.RouteData.Values["action"].ToString() == "Contato") ? "active" : "" )">
                 <a class="nav-link" href="/Home/Contato"><i class="far fa-address-book"></i> Contato </a>
             </li>
+            <li class="nav-item @((ViewContext.RouteData.Values["controller"].ToString() == "Home" && ViewContext.RouteData.Values["action"].ToString() == "Contato") ? "active" : "" )">
+                <a class="nav-link" href="/Colaborador/Home/Login"><i class="fas fa-user-alt"></i> Colaborador</a>
+            </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" method="get">
             <input class="form-control mr-sm-2" type="search" name="pesquisa" value="@pesquisa" placeholder="palavra" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisa</button>
-            <a class="nav-link" href="/Home/Login"><i class="fas fa-user-alt"></i> Login</a>
-            <a class="nav-link" href="/Colaborador/Home/Login" ><i class="fas fa-user-alt"></i> Colaborador</a>
+
+            @if (_loginCliente.GetCliente() != null)
+            {
+                <a class="nav-link" href="Cliente/Home/Login"><i class="fas fa-user-alt"></i> Olá @_loginCliente.GetCliente().Nome</a>
+                <a class="nav-link" asp-controller="" asp-action="" ><i class="fas fa-user-alt"></i>Sair</a>
+            }
+            else
+            {
+                <a class="nav-link" href="Cliente/Home/Login"><i class="fas fa-user-alt"></i> Entrar </a>
+            }
             <a class="nav-link" asp-controller="CarrinhoCompra" asp-action="Index"><i class="fas fa-shopping-cart"></i> Carrinho</a>
         </form>
     </div>

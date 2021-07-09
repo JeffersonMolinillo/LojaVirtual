@@ -1,33 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using LojaVirtual.Libraries.Email;
+﻿using LojaVirtual.Libraries.Email;
+using LojaVirtual.Libraries.Login;
 using LojaVirtual.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using LojaVirtual.Database;
 using LojaVirtual.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
-using LojaVirtual.Libraries.Login;
-using LojaVirtual.Libraries.Filtro;
-using LojaVirtual.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
 
 namespace LojaVirtual.Controllers
 {
     public class HomeController : Controller
     {
-        private IClienteRepository _repositoryCliente;
         private INewsletterRepository _repositoryNewsletter;
-        private LoginCliente _loginCliente;
         private GerenciarEmail _gerenciarEmail;
         private IProdutoRepository _produtoRepository;
         public HomeController(IProdutoRepository produtoRepository, IClienteRepository repositoryCliente, INewsletterRepository repositoryNewsletter, LoginCliente loginCliente, GerenciarEmail gerenciarEmail)
         {
-            _repositoryCliente = repositoryCliente;
             _repositoryNewsletter = repositoryNewsletter;
-            _loginCliente = loginCliente;
             _gerenciarEmail = gerenciarEmail;
             _produtoRepository = produtoRepository;
         }
@@ -105,59 +96,6 @@ namespace LojaVirtual.Controllers
             
 
             return View("Contato");
-        }
-
-
-        [HttpGet]
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Login([FromForm]Cliente cliente)
-        {
-            Cliente clienteDB = _repositoryCliente.Login(cliente.Email, cliente.Senha);
-
-            if(clienteDB != null)
-            {
-                _loginCliente.Login(clienteDB);
-
-                return new RedirectResult(Url.Action(nameof(Painel)));
-            }
-            else
-            {
-                ViewData["MSG_E"] = "Usuário não encontrado, verifique o e-mail e senha digitado!";
-                return View();
-            }
-        }
-
-
-        [HttpGet]
-        [ClienteAutorizacao]
-        public IActionResult Painel()
-        {
-            return new ContentResult() { Content = "Este é o Painel do Cliente!" };
-        }
-
-        [HttpGet]
-        public IActionResult CadastroCliente()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult CadastroCliente([FromForm]Cliente cliente)
-        {
-            if (ModelState.IsValid)
-            {
-                _repositoryCliente.Cadastrar(cliente);
-                
-                TempData["MSG_S"] = "Cadastro realizado com sucesso!";
-
-                //TODO - Implementar redirecionamentos diferentes (Painel, Carrinho de Compras etc).
-                return RedirectToAction(nameof(CadastroCliente));
-            }
-            return View();
         }
     }
 }

@@ -5411,6 +5411,7 @@ C:\Users\elias\Desktop\ASPNETCoreMVCLojaVirtual\Seção 17\12_Fim\LojaVirtual\ob
 C:\Users\elias\Desktop\ASPNETCoreMVCLojaVirtual\Seção 17\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\LojaVirtual.csproj.CopyComplete
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\bin\Debug\netcoreapp2.2\appsettings.Development.json
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\bin\Debug\netcoreapp2.2\appsettings.json
+C:\Users\Adm\source\repos\12_Fim\LojaVirtual\bin\Debug\netcoreapp2.2\Connected Services\WSCorreiosHTTP\ConnectedService.json
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\bin\Debug\netcoreapp2.2\LojaVirtual.deps.json
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\bin\Debug\netcoreapp2.2\LojaVirtual.runtimeconfig.json
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\bin\Debug\netcoreapp2.2\LojaVirtual.runtimeconfig.dev.json
@@ -5418,7 +5419,6 @@ C:\Users\Adm\source\repos\12_Fim\LojaVirtual\bin\Debug\netcoreapp2.2\LojaVirtual
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\bin\Debug\netcoreapp2.2\LojaVirtual.pdb
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\bin\Debug\netcoreapp2.2\LojaVirtual.Views.dll
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\bin\Debug\netcoreapp2.2\LojaVirtual.Views.pdb
-C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\LojaVirtual.csproj.AssemblyReference.cache
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\LojaVirtual.Libraries.Lang.Mensagem.resources
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\LojaVirtual.csproj.GenerateResource.cache
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\LojaVirtual.AssemblyInfoInputs.cache
@@ -5429,6 +5429,9 @@ C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\LojaVirtual
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\LojaVirtual.TagHelpers.input.cache
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\LojaVirtual.TagHelpers.output.cache
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\LojaVirtual.RazorCoreGenerate.cache
+C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Areas\Cliente\Views\Home\CadastroCliente.cshtml.g.cs
+C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Areas\Cliente\Views\Home\Login.cshtml.g.cs
+C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Areas\Cliente\Views\_ViewImports.cshtml.g.cs
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Areas\Colaborador\Views\Categoria\Atualizar.cshtml.g.cs
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Areas\Colaborador\Views\Categoria\Cadastrar.cshtml.g.cs
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Areas\Colaborador\Views\Categoria\Index.cshtml.g.cs
@@ -5448,11 +5451,10 @@ C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Areas
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Areas\Colaborador\Views\_ViewStart.cshtml.g.cs
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Views\CarrinhoCompra\Index.cshtml.g.cs
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Views\CarrinhoCompra\NaoExisteItem.cshtml.g.cs
-C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Views\Home\CadastroCliente.cshtml.g.cs
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Views\Home\Categoria.cshtml.g.cs
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Views\Home\Contato.cshtml.g.cs
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Views\Home\Index.cshtml.g.cs
-C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Views\Home\Login.cshtml.g.cs
+C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Views\Pagamento\Index.cshtml.g.cs
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Views\Produto\ListagemCategoria.cshtml.g.cs
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Views\Produto\Visualizar.cshtml.g.cs
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Components\Menu\Default.cshtml.g.cs
@@ -5468,5 +5470,4 @@ C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\LojaVirtual
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\LojaVirtual.pdb
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\LojaVirtual.genruntimeconfig.cache
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\LojaVirtual.csproj.CopyComplete
-C:\Users\Adm\source\repos\12_Fim\LojaVirtual\bin\Debug\netcoreapp2.2\Connected Services\WSCorreiosHTTP\ConnectedService.json
-C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Views\Pagamento\Index.cshtml.g.cs
+C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\LojaVirtual.csproj.AssemblyReference.cache

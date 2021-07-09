@@ -24,7 +24,7 @@ namespace LojaVirtual.Areas.Colaborador.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login([FromForm]Models.Colaborador colaborador)
+        public IActionResult Login([FromForm] Models.Colaborador colaborador)
         {
             Models.Colaborador colaboradorDB = _repositoryColaborador.Login(colaborador.Email, colaborador.Senha);
 

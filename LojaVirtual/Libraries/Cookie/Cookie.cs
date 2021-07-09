@@ -28,7 +28,7 @@ namespace LojaVirtual.Libraries.Cookie
             Options.Expires = DateTime.Now.AddDays(7);
             Options.IsEssential = true;
 
-            var ValorCrypt = StringCilpher.Encrypt(Valor, _configuration.GetValue<string>("KeyCrypt")); 
+            var ValorCrypt = StringCilpher.Encrypt(Valor, _configuration.GetValue<string>("KeyCrypt"));
 
 
             _context.HttpContext.Response.Cookies.Append(Key, ValorCrypt, Options);
@@ -45,11 +45,15 @@ namespace LojaVirtual.Libraries.Cookie
         {
             _context.HttpContext.Response.Cookies.Delete(Key);
         }
-        public string Consultar(string Key)
+        public string Consultar(string Key, bool Cript = true)
         {
-            var ValorCrypt = _context.HttpContext.Request.Cookies[Key];
-            var Valor = StringCilpher.Decrypt(ValorCrypt, _configuration.GetValue<string>("KeyCrypt"));
-            return Valor;
+            var valor = _context.HttpContext.Request.Cookies[Key];
+
+            if (Cript)
+            {
+                valor = StringCilpher.Decrypt(valor, _configuration.GetValue<string>("KeyCrypt"));
+            }
+            return valor;
         }
 
 
@@ -69,7 +73,7 @@ namespace LojaVirtual.Libraries.Cookie
             {
                 Remover(cookie.Key);
             }
-            
+
         }
     }
 }
