@@ -5,6 +5,7 @@
     MudarQuantidadeProdutoCarrinho();
 
     MascaraCep();
+    MascaraCpf();
     AcaoCalcularFreteBTN();
     AJAXCalcularFrete(false);
 
@@ -85,6 +86,10 @@ function AJAXCalcularFrete(callByButton) {
 
 function MascaraCep() {
     $(".cep").mask("00.000-000");
+}
+
+function MascaraCpf() {
+    $(".cpf").mask("000.000.000-00");
 }
 
 function NumberToReal(numero) {
