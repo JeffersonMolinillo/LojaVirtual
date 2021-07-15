@@ -5,12 +5,54 @@
     MudarQuantidadeProdutoCarrinho();
 
     MascaraCep();
+    AJAXBuscarCEP();
+
     MascaraCpf();
+
     AcaoCalcularFreteBTN();
     AJAXCalcularFrete(false);
 
 });
 
+function AJAXBuscarCEP() {
+    $("#CEP").keyup(function () {
+        OcultarMensagemDeErro();
+        if ($(this).val().length == 10) {
+
+            var cepSemMask = RemoverMascara($(this).val());
+            $.ajax({
+                type: "GET",
+                url: "https://viacep.com.br/ws/" + cepSemMask + "/json/?callback=callback_name",
+                dataType: "jsonp",
+                error: function (data) {
+                    MostrarMensagemDeErro("Opps! Tivemos um erro na busca pelo CEP! parece que os servidores estão offiline!");
+                },
+                success: function (data) {
+                    if (data.erro == undefined) {
+                        console.info("ok");
+                        console.info(data);
+                        $("#Estado").val(data.uf);
+                        $("#Cidade").val(data.localidade);
+                        $("#Endereco").val(data.logradouro);
+                        $("#Bairro").val(data.bairro);
+                    } else {
+                        MostrarMensagemDeErro("O Cep Informado nao existe")
+                    }
+
+                }
+            });
+        }
+    });
+}
+
+
+function MascaraCep() {
+    $(".cep").mask("00.000-000");
+}
+
+function MascaraCpf() {
+    $(".cpf").mask("000.000.000-00");
+}
 
     
 function AcaoCalcularFreteBTN() {
@@ -84,13 +126,7 @@ function AJAXCalcularFrete(callByButton) {
     }
 }
 
-function MascaraCep() {
-    $(".cep").mask("00.000-000");
-}
 
-function MascaraCpf() {
-    $(".cpf").mask("000.000.000-00");
-}
 
 function NumberToReal(numero) {
     var numero = numero.toFixed(2).split('.');
@@ -272,4 +308,8 @@ class ProdutoQuantidadeEValor {
         this.campoQuantidadeProdutoCarrinho = campoQuantidadeProdutoCarrinho;
         this.campoValor = campoValor;
     }
+}
+
+function RemoverMascara(valor) {
+    return valor.replace(".", "").replace("-", "");
 }

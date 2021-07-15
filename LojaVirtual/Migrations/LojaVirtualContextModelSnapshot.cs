@@ -15,7 +15,7 @@ namespace LojaVirtual.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -46,16 +46,36 @@ namespace LojaVirtual.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Bairro")
+                        .IsRequired();
+
                     b.Property<string>("CPF")
                         .IsRequired();
 
+                    b.Property<string>("Cep")
+                        .IsRequired()
+                        .HasMaxLength(10);
+
+                    b.Property<string>("Cidade")
+                        .IsRequired();
+
+                    b.Property<string>("Complemento");
+
                     b.Property<string>("Email")
+                        .IsRequired();
+
+                    b.Property<string>("Endereco")
+                        .IsRequired();
+
+                    b.Property<string>("Estado")
                         .IsRequired();
 
                     b.Property<DateTime>("Nascimento");
 
                     b.Property<string>("Nome")
                         .IsRequired();
+
+                    b.Property<string>("Numero");
 
                     b.Property<string>("Senha")
                         .IsRequired();
@@ -126,7 +146,7 @@ namespace LojaVirtual.Migrations
                     b.ToTable("NewsletterEmails");
                 });
 
-            modelBuilder.Entity("LojaVirtual.Models.Produto", b =>
+            modelBuilder.Entity("LojaVirtual.Models.ProdutoAgregador.Produto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -138,11 +158,13 @@ namespace LojaVirtual.Migrations
 
                     b.Property<int>("Comprimento");
 
-                    b.Property<string>("Descricao");
+                    b.Property<string>("Descricao")
+                        .IsRequired();
 
                     b.Property<int>("Largura");
 
-                    b.Property<string>("Nome");
+                    b.Property<string>("Nome")
+                        .IsRequired();
 
                     b.Property<double>("Peso");
 
@@ -166,13 +188,13 @@ namespace LojaVirtual.Migrations
 
             modelBuilder.Entity("LojaVirtual.Models.Imagem", b =>
                 {
-                    b.HasOne("LojaVirtual.Models.Produto", "Produto")
+                    b.HasOne("LojaVirtual.Models.ProdutoAgregador.Produto", "Produto")
                         .WithMany("Imagens")
                         .HasForeignKey("ProdutoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("LojaVirtual.Models.Produto", b =>
+            modelBuilder.Entity("LojaVirtual.Models.ProdutoAgregador.Produto", b =>
                 {
                     b.HasOne("LojaVirtual.Models.Categoria", "Categoria")
                         .WithMany()
