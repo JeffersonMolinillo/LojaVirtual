@@ -5471,3 +5471,5 @@ C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\LojaVirtual
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\LojaVirtual.genruntimeconfig.cache
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\LojaVirtual.csproj.CopyComplete
 C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\LojaVirtual.csproj.AssemblyReference.cache
+C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Areas\Cliente\Views\Home\CadastrarEnderecoEntrega.cshtml.g.cs
+C:\Users\Adm\source\repos\12_Fim\LojaVirtual\obj\Debug\netcoreapp2.2\Razor\Views\CarrinhoCompra\EnderecoEntrega.cshtml.g.cs

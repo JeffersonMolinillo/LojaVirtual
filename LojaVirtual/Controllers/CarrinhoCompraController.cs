@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using LojaVirtual.Controllers.Base;
 using LojaVirtual.Libraries.CarrinhoCompra;
+using LojaVirtual.Libraries.Filtro;
 using LojaVirtual.Libraries.Gerenciador.Frete;
 using LojaVirtual.Libraries.Lang;
+using LojaVirtual.Libraries.Login;
+using LojaVirtual.Migrations;
 using LojaVirtual.Models;
 using LojaVirtual.Models.Contants;
 using LojaVirtual.Models.ProdutoAgregador;
@@ -10,15 +13,21 @@ using LojaVirtual.Repositories.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace LojaVirtual.Controllers
 {
     public class CarrinhoCompraController : BaseController
     {
-        public CarrinhoCompraController(CookieCarrinhoCompra carrinhoCompra, IProdutoRepository produtoRepository, IMapper mapper, WSCorreiosCalcularFrete wsCorreios, CalcularPacote calcularPacote, CookieValorPrazoFrete cookieValorPrazoFrete) : base(carrinhoCompra, produtoRepository, mapper, wsCorreios,calcularPacote,cookieValorPrazoFrete)
-        {
+        private LoginCliente _loginCliente;
 
+        private IEnderecoEntregaRepository _enderecoEntregaRepository;
+
+        public CarrinhoCompraController(LoginCliente loginCliente, IEnderecoEntregaRepository enderecoEntregaRepository, CookieCarrinhoCompra carrinhoCompra, IProdutoRepository produtoRepository, IMapper mapper, WSCorreiosCalcularFrete wsCorreios, CalcularPacote calcularPacote, CookieValorPrazoFrete cookieValorPrazoFrete) : base(carrinhoCompra, produtoRepository, mapper, wsCorreios,calcularPacote,cookieValorPrazoFrete)
+        {
+            _loginCliente = loginCliente;
+            _enderecoEntregaRepository = enderecoEntregaRepository;
         }
 
         public IActionResult Index()
@@ -67,6 +76,17 @@ namespace LojaVirtual.Controllers
         {
             _cookieCarrinhoCompra.Remover(new ProdutoItem() { Id = id });
             return RedirectToAction(nameof(Index));
+        }
+
+        [ClienteAutorizacao]
+        public IActionResult EnderecoEntrega()
+        {
+            Cliente cliente = _loginCliente.GetCliente();
+            IList<EnderecoEntrega> enderecos = _enderecoEntregaRepository.ObterTodosEnderecosEntregaCliente(cliente.Id);
+            ViewBag.Cliente = cliente;
+            ViewBag.Endecos = enderecos;
+
+            return View();
         }
 
 

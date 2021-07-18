@@ -1,5 +1,6 @@
 ﻿using LojaVirtual.Libraries.Filtro;
 using LojaVirtual.Libraries.Login;
+using LojaVirtual.Models;
 using LojaVirtual.Repositories.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,11 +9,13 @@ namespace LojaVirtual.Areas.Cliente.Controllers
     [Area("Cliente")]
     public class HomeController : Controller
     {
+        private IEnderecoEntregaRepository _enderecoEntregaRepository;
         private IClienteRepository _repositoryCliente;
         private LoginCliente _loginCliente;
 
-        public HomeController(IClienteRepository repositoryCliente, LoginCliente loginCliente)
+        public HomeController(IEnderecoEntregaRepository enderecoEntregaRepository, IClienteRepository repositoryCliente, LoginCliente loginCliente)
         {
+            _enderecoEntregaRepository = enderecoEntregaRepository;
             _repositoryCliente = repositoryCliente;
             _loginCliente = loginCliente;
         }
@@ -32,7 +35,7 @@ namespace LojaVirtual.Areas.Cliente.Controllers
             {
                 _loginCliente.Login(clienteDB);
 
-                if(returnUrl == null)
+                if (returnUrl == null)
                 {
                     return new RedirectResult(Url.Action(nameof(Painel)));
                 }
@@ -72,7 +75,33 @@ namespace LojaVirtual.Areas.Cliente.Controllers
                 TempData["MSG_S"] = "Cadastro realizado com sucesso!";
                 if (returnUrl == null)
                 {
-                    return RedirectToAction("Index", "Home", new { area = ""} );
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+                else
+                {
+                    return LocalRedirectPermanent(returnUrl);
+                }
+            }
+            return View();
+        }
+
+
+        [HttpGet]
+        public IActionResult CadastrarEnderecoEntrega()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CadastrarEnderecoEntrega([FromForm] EnderecoEntrega endereco, string returnUrl = null)
+        {
+            if (ModelState.IsValid)
+            {
+                endereco.ClienteId = _loginCliente.GetCliente().Id;
+                _enderecoEntregaRepository.Cadastrar(endereco);
+                if (returnUrl == null)
+                {
+
                 }
                 else
                 {
