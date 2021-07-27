@@ -5,15 +5,15 @@ using LojaVirtual.Libraries.Filtro;
 using LojaVirtual.Libraries.Gerenciador.Frete;
 using LojaVirtual.Libraries.Lang;
 using LojaVirtual.Libraries.Login;
-using LojaVirtual.Migrations;
+using LojaVirtual.Libraries.Seguranca;
 using LojaVirtual.Models;
 using LojaVirtual.Models.Contants;
 using LojaVirtual.Models.ProdutoAgregador;
 using LojaVirtual.Repositories.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace LojaVirtual.Controllers
@@ -24,7 +24,7 @@ namespace LojaVirtual.Controllers
 
         private IEnderecoEntregaRepository _enderecoEntregaRepository;
 
-        public CarrinhoCompraController(LoginCliente loginCliente, IEnderecoEntregaRepository enderecoEntregaRepository, CookieCarrinhoCompra carrinhoCompra, IProdutoRepository produtoRepository, IMapper mapper, WSCorreiosCalcularFrete wsCorreios, CalcularPacote calcularPacote, CookieValorPrazoFrete cookieValorPrazoFrete) : base(carrinhoCompra, produtoRepository, mapper, wsCorreios,calcularPacote,cookieValorPrazoFrete)
+        public CarrinhoCompraController(LoginCliente loginCliente, IEnderecoEntregaRepository enderecoEntregaRepository, CookieCarrinhoCompra carrinhoCompra, IProdutoRepository produtoRepository, IMapper mapper, WSCorreiosCalcularFrete wsCorreios, CalcularPacote calcularPacote, CookieFrete cookieValorPrazoFrete) : base(carrinhoCompra, produtoRepository, mapper, wsCorreios,calcularPacote,cookieValorPrazoFrete)
         {
             _loginCliente = loginCliente;
             _enderecoEntregaRepository = enderecoEntregaRepository;
@@ -84,7 +84,7 @@ namespace LojaVirtual.Controllers
             Cliente cliente = _loginCliente.GetCliente();
             IList<EnderecoEntrega> enderecos = _enderecoEntregaRepository.ObterTodosEnderecosEntregaCliente(cliente.Id);
             ViewBag.Cliente = cliente;
-            ViewBag.Endecos = enderecos;
+            ViewBag.Enderecos = enderecos;
 
             return View();
         }
@@ -109,15 +109,22 @@ namespace LojaVirtual.Controllers
                 if (valorSEDEX != null) lista.Add(valorSEDEX);
                 if (valorSEDEX10 != null) lista.Add(valorSEDEX10);
 
-                _cookieValorPrazoFrete.Cadastrar(lista);
 
-                return Ok(lista);
+                var frete =  new Frete()
+                {
+                    CEP = cepDestino,
+                    CodCarrinho = GerarHash(_cookieCarrinhoCompra.Consultar()),
+                    ListaValores = lista
+                };
+
+
+                _cookieFrete.Cadastrar(frete);
+
+                return Ok(frete);
 
             }
             catch (Exception e)
             {
-                _cookieValorPrazoFrete.Remover();
-
                 return BadRequest(e);
             }
 

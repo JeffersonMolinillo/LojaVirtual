@@ -93,12 +93,12 @@ namespace LojaVirtual.Areas.Cliente.Controllers
         }
 
         [HttpPost]
-        public IActionResult CadastrarEnderecoEntrega([FromForm] EnderecoEntrega endereco, string returnUrl = null)
+        public IActionResult CadastrarEnderecoEntrega([FromForm] EnderecoEntrega enderecoEntrega, string returnUrl = null)
         {
             if (ModelState.IsValid)
             {
-                endereco.ClienteId = _loginCliente.GetCliente().Id;
-                _enderecoEntregaRepository.Cadastrar(endereco);
+                enderecoEntrega.ClienteId = _loginCliente.GetCliente().Id;
+                _enderecoEntregaRepository.Cadastrar(enderecoEntrega);
                 if (returnUrl == null)
                 {
 

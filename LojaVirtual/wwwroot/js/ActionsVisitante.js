@@ -11,8 +11,77 @@
 
     AcaoCalcularFreteBTN();
     AJAXCalcularFrete(false);
+    AJAXEnderecoEntregaCalcularFrete();
 
 });
+
+function AJAXEnderecoEntregaCalcularFrete() {
+    $("input[name=endereco]").change(function () {
+        var cep = RemoverMascara($(this).parent().find("input[name=cep]").val());
+
+
+        EnderecoEmtregaCardsLoading();
+
+
+        $.ajax({
+            type: "GET",
+            url: "/CarrinhoCompra/CalcularFrete?cepDestino=" + cep,
+            error: function (data) {
+                MostrarMensagemDeErro("Opps! Tivemos um erro ao obter o Frete..." + data.Message);
+                EnderecoEmtregaCardsLimpar();
+
+            },
+            success: function (data) {
+
+                EnderecoEmtregaCardsLimpar();
+
+
+                for (var i = 0; i < data.listaValores.length; i++) {
+                    var tipoFrete = data.listaValores[i].tipoFrete;
+                    var valor = data.listaValores[i].valor;
+                    var prazo = data.listaValores[i].prazo;
+
+                    $(".card-title")[i].innerHTML = tipoFrete;
+                    $(".card-text")[i].innerHTML = "Prazo de " + prazo + " dias. ";
+                    $(".card-footer .text-muted")[i].innerHTML = "<input type=\"radio\"name=\"frete\"value=\"" + tipoFrete + "\"id='" + tipoFrete + "' /> <strong><label for='" + tipoFrete + "'> " + NumberToReal(valor) + "</label></strong>";
+                    
+
+
+                    if ($.cookie("Carrinho.TipoFrete") == tipoFrete)
+                    {
+                        $(".card-footer .text-muted").find("input[name=frete]").attr("selected", "selected");
+                        $(".btn-continuar").removeClass("disabled");
+                    }
+                }
+
+                $(".card-footer .text-muted").find("input[name=frete]").change(function () {
+                    $.cookie("Carrinho.TipoFrete", $(this).val());
+                    $(".btn-continuar").removeClass("disabled");
+                });
+
+            }
+        })
+    });
+}
+
+
+function EnderecoEmtregaCardsLoading() {
+    for (var i = 0; i < 3; i++) {
+        $(".card-text")[i].innerHTML = "<br/> <img class=loading src='\\img\\loading1.gif'/>";
+    }
+}
+
+
+function EnderecoEmtregaCardsLimpar() {
+    for (var i = 0; i < 3; i++) {
+        $(".card-title")[i].innerHTML = "INDISPONÍVEL";
+        $(".card-text")[i].innerHTML = "Indisponível";
+        $(".card-footer .text-muted")[i].innerHTML = "Indisponível";
+    }
+}
+
+
+
 
 function AJAXBuscarCEP() {
     $("#CEP").keyup(function () {
@@ -54,7 +123,7 @@ function MascaraCpf() {
     $(".cpf").mask("000.000.000-00");
 }
 
-    
+
 function AcaoCalcularFreteBTN() {
     $(".btn-calcular-frete").click(function (e) {
         AJAXCalcularFrete(true);
@@ -70,58 +139,60 @@ function AJAXCalcularFrete(callByButton) {
         }
     }
 
-    var cep = $(".cep").val().replace(".", "").replace("-", "");
-    $.removeCookie("Carrinho.TipoFrete");
-    var img = "<br/> <img class=loading src='\\img\\loading1.gif'/>";
+    if ($(".cep").length > 0) {
+        var cep = RemoverMascara($(".cep").val());
+        $.removeCookie("Carrinho.TipoFrete");
+        var img = "<br/> <img class=loading src='\\img\\loading1.gif'/>";
 
 
-    if (cep.length == 8) {
-        $.cookie('Carrinho.Cep', $(".cep").val());
-        $(".container-frete").html(img);
-        $(".frete").text("R$ 0,00");
-        $(".total").text("R$ 0,00");
+        if (cep.length == 8) {
+            $.cookie('Carrinho.Cep', $(".cep").val());
+            $(".container-frete").html(img);
+            $(".frete").text("R$ 0,00");
+            $(".total").text("R$ 0,00");
 
-        html = "";
+            html = "";
 
-        $.ajax({
-            type: "GET",
-            url: "/CarrinhoCompra/CalcularFrete?cepDestino=" + cep,
-            error: function (data) {
-                MostrarMensagemDeErro("Opps! Tivemos um erro ao obter o Frete..." + data.Message);
-                console.info(data);
-            },
-            success: function (data) {
+            $.ajax({
+                type: "GET",
+                url: "/CarrinhoCompra/CalcularFrete?cepDestino=" + cep,
+                error: function (data) {
+                    MostrarMensagemDeErro("Opps! Tivemos um erro ao obter o Frete..." + data.Message);
+                    console.info(data);
+                },
+                success: function (data) {
+                    console.info(data)
+                    for (var i = 0; i < data.listaValores.length; i++) {
+                        var tipoFrete = data.listaValores[i].tipoFrete;
+                        var valor = data.listaValores[i].valor;
+                        var prazo = data.listaValores[i].prazo;
 
-                for (var i = 0; i < data.length; i++) {
-                    var tipoFrete = data[i].tipoFrete;
-                    var valor = data[i].valor;
-                    var prazo = data[i].prazo;
+                        html += "<dl class=\"dlist-align\"><dt><input type=\"radio\" name=\"frete\" value=\"" + tipoFrete + "\" /><input type=\"hidden\" name=\valor\" value=\"" + valor + "\" </dt> <dd>" + tipoFrete + " - " + NumberToReal(valor) + " ( " + prazo + " dia úteis) </dd ></dl > ";
 
-                    html += "<dl class=\"dlist-align\"><dt><input type=\"radio\" name=\"frete\" value=\"" + tipoFrete + "\" /><input type=\"hidden\" name=\valor\" value=\"" + valor + "\" </dt> <dd>" + tipoFrete + " - " + NumberToReal(valor) + " ( " + prazo + " dia úteis) </dd ></dl > ";
+                    }
 
+                    $(".container-frete").html(html);
+                    $(".container-frete").find("input[type=radio]").change(function () {
+                        var valorFrete = parseFloat(($(this).parent().find("input[type=hidden]").val()));
+
+                        $.cookie("Carrinho.TipoFrete", $(this).val());
+                        $(".btn-continuar").removeClass("disabled");
+
+                        $(".frete").text(NumberToReal(valorFrete));
+
+                        var subTotal = parseFloat($(".subtotal").text().replace("R$", "").replace(".", "").replace(",", "."));
+                        console.info(subTotal);
+                        var totalCarrinho = parseFloat(valorFrete + subTotal);
+                        $(".total").text(NumberToReal(totalCarrinho));
+                    });
+                    //    console.log(data);
                 }
-
-                $(".container-frete").html(html);
-                $(".container-frete").find("input[type=radio]").change(function () {
-                    var valorFrete = parseFloat(($(this).parent().find("input[type=hidden]").val()));
-
-                    $.cookie("Carrinho.TipoFrete", $(this).val());
-                    $(".btn-continuar").removeClass("disabled");
-
-                    $(".frete").text(NumberToReal(valorFrete));
-
-                    var subTotal = parseFloat($(".subtotal").text().replace("R$", "").replace(".", "").replace(",", "."));
-                    console.info(subTotal);
-                    var totalCarrinho = parseFloat(valorFrete + subTotal);
-                    $(".total").text(NumberToReal(totalCarrinho));
-                });
-                //    console.log(data);
+            });
+        } else {
+            if (callByButton == true) {
+                $(".container-frete").html("");
+                MostrarMensagemDeErro("Digite o CEP para calcular o frete");
             }
-        });
-    } else {
-        if (callByButton == true) {
-            $(".container-frete").html("");
-            MostrarMensagemDeErro("Digite o CEP para calcular o frete");
         }
     }
 }

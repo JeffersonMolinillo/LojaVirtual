@@ -16,7 +16,7 @@ namespace LojaVirtual.Controllers
     public class PagamentoController : BaseController
     {
         private Cookie _cookie;
-        public PagamentoController(Cookie cookie, CookieCarrinhoCompra carrinhoCompra, IProdutoRepository produtoRepository, IMapper mapper, WSCorreiosCalcularFrete wsCorreios, CalcularPacote calcularPacote, CookieValorPrazoFrete cookieValorPrazoFrete) : base(carrinhoCompra, produtoRepository, mapper, wsCorreios, calcularPacote, cookieValorPrazoFrete)
+        public PagamentoController(Cookie cookie, CookieCarrinhoCompra carrinhoCompra, IProdutoRepository produtoRepository, IMapper mapper, WSCorreiosCalcularFrete wsCorreios, CalcularPacote calcularPacote, CookieFrete cookieValorPrazoFrete) : base(carrinhoCompra, produtoRepository, mapper, wsCorreios, calcularPacote, cookieValorPrazoFrete)
         {
             _cookie = cookie;
         }
@@ -28,15 +28,15 @@ namespace LojaVirtual.Controllers
             var tipoFreteSelecionadoPeloUsuario = _cookie.Consultar("Carrinho.TipoFrete", false);
             if (tipoFreteSelecionadoPeloUsuario != null)
             {
-                var frete = _cookieValorPrazoFrete.Consultar().Where(a => a.TipoFrete == tipoFreteSelecionadoPeloUsuario).FirstOrDefault();
+                //var frete = _cookieFrete.Consultar().Where(a => a.ListaValores == tipoFreteSelecionadoPeloUsuario).FirstOrDefault();
 
-                if (frete != null)
-                {
-                    ViewBag.Frete = frete; //passando o frete para a tela através di viewBag
-                    List<ProdutoItem> produtoItemCompleto = CarregarProdutoDB();
+                //if (frete != null)
+                //{
+                //    ViewBag.Frete = frete; //passando o frete para a tela através di viewBag
+                //    List<ProdutoItem> produtoItemCompleto = CarregarProdutoDB();
 
-                    return View(produtoItemCompleto);
-                }
+                //    return View(produtoItemCompleto);
+                //} 
             }
 
             TempData["MSG_e"] = Mensagem.MSG_E009;

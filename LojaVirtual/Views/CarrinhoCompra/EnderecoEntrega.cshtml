@@ -9,13 +9,77 @@
     <div class="row">
         <div class="col-md-12">
             @*//listar enderedeços*@
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th scope="row">
+                            <input type="radio" name="endereco" class="selectEndereco" value="0" />
+                            <input type="hidden" name="cep" value="@ViewBag.Cliente.CEP"/>
+                        </th>
+                        <td>
+                            <strong>Nome: </strong> @ViewBag.Cliente.Nome
+                            <p>
+                                <strong>Endereço:</strong> @ViewBag.Cliente.Endereco, @ViewBag.Cliente.Numero - @ViewBag.Cliente.Complemento, <strong>Bairro:</strong> @ViewBag.Cliente.Bairro, <strong>CEP:</strong>  @ViewBag.Cliente.CEP - @ViewBag.Cliente.Estado, @ViewBag.Cliente.Cidade
+                            </p>
+                        </td>
+                    </tr>
+
+                    @foreach (EnderecoEntrega endereco in ViewBag.Enderecos)
+                    {
+                        <tr>
+                            <th scope="row">
+                                <input type="radio" name="endereco" class="selectEndereco" value="0" />
+                                <input type="hidden" name="cep" value="@endereco.CEP" />
+                            </th>
+                            <td>
+                                <strong>Nome: </strong> @endereco.NomeEndereco
+                                <p>
+                                    <strong>Endereço:</strong> @endereco.Endereco, @endereco.Numero - @endereco.Complemento, <strong>Bairro:</strong> @endereco.Bairro, <strong>CEP:</strong>  @endereco.CEP - @endereco.Estado, @endereco.Cidade
+                                </p>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
 
             <div class="text-center">
-                <a asp-action="CadastroEnderecoEntrega" asp-controller="Home" asp-area="Cliente" asp-route-returnUrl="@Url.Action("EnderecoEntrega", "CarrinhoCompra", new { area = ""})" class="btn btn-outline-primary">Cadastrar novo Endereço</a>
+                <a asp-action="CadastrarEnderecoEntrega" asp-controller="Home" asp-area="Cliente" asp-route-returnUrl="@Url.Action("EnderecoEntrega", "CarrinhoCompra", new { area = ""})" class="btn btn-outline-primary">Cadastrar novo Endereço</a>
             </div>
+            <br />
+
+            <div class="card-group text-center">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">-</h5>
+                        <p class="card-text">-</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted"> -
+                        </small>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">-</h5>
+                        <p class="card-text">-</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted"> -
+                        </small>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">-</h5>
+                        <p class="card-text">-</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted"> -
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <a asp-action="Index" asp-controller="Pagamento" class="btn btn-primary disabled">Continuar</a>
         </div>
-        <a asp-action="Index" asp-controller="Pagamento" class="btn btn-primary">Continuar</a>
-        <br />
-        <br />
     </div>
-</div>
